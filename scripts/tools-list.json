@@ -1,0 +1,127 @@
+[
+  {
+    "name": "ping",
+    "description": "Sends ICMP echo requests to a specified host to check network connectivity and measure response times.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "arguments": {
+          "type": "string",
+          "description": "The target host or IP address, along with optional ping command arguments (e.g., '-c 4 www.google.com')."
+        }
+      },
+      "required": [
+        "arguments"
+      ]
+    }
+  },
+
+  {
+    "name": "pty-connect",
+    "description": "Runs a command via a pseudo-terminal (pty) to interact with external tools or services, with optional arguments.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "command": {
+          "type": "string",
+          "description": "Name of the command to run."
+        },
+        "arguments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of arguments for the command."
+        }
+      },
+      "required": [
+        "command"
+      ]
+    }
+  },
+
+  {
+    "name": "pty-bash",
+    "description": "pty-bash is a tool that launches a bash shell in a pseudo terminal (PTY). It allows the LLM (MCP client) to interact with a real Linux shell in an interactive terminal (PTY). This enables AI to run system commands, collect information, and handle prompts or TUI-based tools as if operated by a human, making it effective for dynamic Linux-based automation and diagnostics.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "arguments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Arguments to pass to /bin/bash command, e.g., [\"-i\", \"-l\"]"
+        }
+      },
+      "required": [
+        "arguments"
+      ]
+    }
+  },
+
+  {
+    "name": "pty-ssh",
+    "description": "Establishes an SSH session in a pseudo-terminal with the specified arguments, allowing interaction with remote systems.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "arguments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Arguments to be passed to the SSH command, such as user, host, and optional flags."
+        }
+      },
+      "required": [
+        "arguments"
+      ]
+    }
+  },
+
+  {
+    "name": "pty-ghci",
+    "description": "Launches a GHCi session in a pseudo-terminal using the specified project directory, main source file, and arguments.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "projectDir": {
+          "type": "string",
+          "description": "The directory containing the Haskell project. GHCi will use this as the working directory."
+        },
+        "startupFile": {
+          "type": "string",
+          "description": "The Haskell source file to load on startup, typically Main.hs or the entry point for the application. This should be provided as a full absolute path."
+        },
+        "arguments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Command-line arguments to be passed directly to GHCi on session start."
+        }
+      },
+      "required": [
+        "projectDir"
+      ]
+    }
+  },
+
+  {
+    "name": "pty-message",
+    "description": "pms-messages is a tool for sending structured instructions or commands to a running PTY session. It abstracts direct terminal input, allowing the LLM (MCP client) to interact with the PTY process in a controlled and programmable way without needing to know what is running inside.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "arguments": {
+          "type": "string",
+          "description": "df -k"
+        }
+      },
+      "required": [
+        "arguments"
+      ]
+    }
+  }
+]
