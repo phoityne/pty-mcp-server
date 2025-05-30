@@ -80,12 +80,12 @@ As an MCP server, `pty-mcp-server` operates strictly in **stdio** mode, communic
 ### Dependencies
 
 This package depends on the following packages:  
-- `pms-ui-request`  
-- `pms-ui-response`  
-- `pms-infrastructure`  
-- `pms-application-service`  
-- `pms-domain-service`  
-- `pms-domain-model`
+- [`pms-ui-request`](https://github.com/phoityne/pty-mcp-server)
+- [`pms-ui-response`](https://github.com/phoityne/pms-domain-model)
+- [`pms-infrastructure`](https://github.com/phoityne/pms-domain-model)
+- [`pms-application-service`](https://github.com/phoityne/pms-domain-model)
+- [`pms-domain-service`](https://github.com/phoityne/pms-domain-model)
+- [`pms-domain-model`](https://github.com/phoityne/pms-domain-model)
 
 ### How to Run
 
@@ -185,6 +185,6 @@ This architecture follows a layered and modular approach. Domain models, domain 
 ![Deployment Diagram](https://github.com/phoityne/pty-mcp-server/blob/main/docs/01-1.png?raw=true)
 
 ### Package Structure
-![Deployment Diagram](https://github.com/phoityne/pty-mcp-server/blob/main/docs/01-2.png?raw=true)
+![Package Structure](https://github.com/phoityne/pty-mcp-server/blob/main/docs/01-2.png?raw=true)
 
 

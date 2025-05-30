@@ -1,10 +1,10 @@
 packages:
   ./
-  ../11_pms-ui-request
-  ../12_pms-ui-response
-  ../21_pms-infrastructure
-  ../31_pms-application-service
-  ../41_pms-domain-service
-  ../51_pms-domain-model
+  ../pms-ui-request
+  ../pms-ui-response
+  ../pms-infrastructure
+  ../pms-application-service
+  ../pms-domain-service
+  ../pms-domain-model
  
 
