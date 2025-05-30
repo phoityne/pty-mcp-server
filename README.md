@@ -1,7 +1,6 @@
 # pty-mcp-server
 
 ----
-----
 ## ⚠️ Caution
 
 **Do not grant unrestricted control to AI.**  
@@ -14,7 +13,6 @@ Use with caution and full accountability.
 **Use at your own risk.**
 
 ----
-----
 
 `pty-mcp-server` is a Haskell implementation of the MCP (Model Context Protocol),
 designed to enable AI agents to acquire and control PTY (pseudo-terminal) connections dynamically.
@@ -26,7 +24,7 @@ As an MCP server, `pty-mcp-server` operates strictly in **stdio** mode, communic
 
 ---
 
-## 1. User Guide (Usage and Setup)
+## User Guide (Usage and Setup)
 
 ### Features
 
@@ -144,7 +142,7 @@ cabal install pty-mcp-server
 
 ---
 
-## 2. Architecture Guide (Software Architecture and Technical Details)
+## Architecture Guide (Software Architecture and Technical Details)
 
 ### Architectural Strategy
 
