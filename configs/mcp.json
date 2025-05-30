@@ -1,0 +1,10 @@
+{
+  "servers": {
+    // https://github.com/ppl-ai/modelcontextprotocol/
+    "pty-mcp-server-v1": {
+      "type": "stdio",
+      "command": "pty-mcp-server",
+      "args": ["-y", "/work/haskell/pty-mcp-server/01_pty-mcp-server/pty-mcp-server.yaml"]
+    }
+  }
+}
