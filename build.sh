@@ -5,5 +5,5 @@ cabal clean
 cabal configure
 cabal build
 cabal install --overwrite-policy=always
-cabal run pty-mcp-server -- -y ./pty-mcp-server.yaml 
+cabal run pty-mcp-server -- -y ./configs/pty-mcp-server.yaml 
 
