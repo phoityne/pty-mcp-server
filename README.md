@@ -4,7 +4,6 @@
 ## ⚠️ Caution
 
 **Do not grant unrestricted control to AI.**  
-Do not grant unrestricted control to AI.  
 Unsupervised use or misuse may lead to unintended consequences.  
 All AI systems must remain strictly under human oversight and control.  
 Use responsibly, with full awareness and at your own risk.  
