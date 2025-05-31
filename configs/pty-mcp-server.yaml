@@ -1,6 +1,6 @@
-logDir : "/work/haskell/pty-mcp-server/01_pty-mcp-server/logs"
+logDir : "/work/haskell/pms/pty-mcp-server/logs"
 logLevel : "Debug"
-scriptsDir : "/work/haskell/pty-mcp-server/01_pty-mcp-server/scripts"
+scriptsDir : "/work/haskell/pms/pty-mcp-server/assets/scripts"
 prompts:
   - "ghci>"
   - "]$"
