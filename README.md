@@ -4,13 +4,10 @@
 ## ⚠️ Caution
 
 **Do not grant unrestricted control to AI.**  
-Always ensure that all AI systems remain strictly under human supervision and authority.
-
-This project is intended to support AI-assisted workflows. However, final decisions and operational control must always rest with human operators. The AI is a tool — not an autonomous agent.
-
-Unsupervised use or misapplication may result in unintended consequences.  
-Use with caution and full accountability.  
-**Use at your own risk.**
+Do not grant unrestricted control to AI.
+Unsupervised use or misuse may lead to unintended consequences.
+All AI systems must remain strictly under human oversight and control.
+Use responsibly, with full awareness and at your own risk.
 
 ----
 
