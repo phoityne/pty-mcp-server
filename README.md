@@ -157,6 +157,18 @@ The overall package structure adheres to the principles of **Onion Architecture*
 
 ---
 
+### Role of `pty-mcp-server` as a Dependency Injector
+
+In addition to managing REPL communication, `pty-mcp-server` is **not merely an executable module**, but also acts as a **dependency injector** for the entire system.
+
+- It is capable of **referencing all relevant PMS packages**, including those that it depends on.
+- This allows it to **construct and wire together application components** across multiple packages and modules in a unified manner.
+- By centralizing this dependency resolution, `pty-mcp-server` provides a single point of control over **cross-cutting dependencies**, improving visibility and control over the system architecture.
+
+As a result, inter-package and inter-module dependencies can be **centrally coordinated and managed**, which promotes better encapsulation, reusability, and testability throughout the system.
+
+---
+
 ### Rationale for Package Separation
 
 - **Clear Interface Definition**  
@@ -185,9 +197,9 @@ This architecture follows a layered and modular approach. Domain models, domain 
 
 
 ### Deployment Diagram
-![Deployment Diagram](./docs/01-1.png)
+![Deployment Diagram](https://raw.githubusercontent.com/phoityne/pty-mcp-server/master/docs/01-1.png)
 
 ### Package Structure
-![Package Structure](./docs/01-2.png)
+![Package Structure](https://raw.githubusercontent.com/phoityne/pty-mcp-server/master/docs/01-2.png)
 
 
