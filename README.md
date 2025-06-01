@@ -120,8 +120,7 @@ This file defines how the `pty-mcp-server` should be launched in a development e
 }
 ```
 
-### config.yaml Configuration
-
+### config.yaml Configuration ([ref](./configs/pty-mcp-server.yaml))
 - `logDir`:  
   The directory path where log files will be saved. This includes standard output/error logs and logs from script executions.
 
