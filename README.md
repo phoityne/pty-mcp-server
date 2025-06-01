@@ -39,6 +39,14 @@ As an MCP server, `pty-mcp-server` operates strictly in **stdio** mode, communic
   Opens a remote SSH session via PTY, enabling access to remote systems.  
   Accepts user/host and SSH flags as arguments.
 
+- **`pty-cabal`**  
+  Launches a cabal repl session within a specified project directory, loading a target Haskell file.  
+  Supports argument passing and live code interaction.
+
+- **`pty-stack`**  
+  Launches a stack repl session within a specified project directory, loading a target Haskell file.  
+  Supports argument passing and live code interaction.
+
 - **`pty-ghci`**  
   Launches a GHCi session within a specified project directory, loading a target Haskell file.  
   Supports argument passing and live code interaction.
