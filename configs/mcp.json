@@ -4,7 +4,7 @@
     "pty-mcp-server-v1": {
       "type": "stdio",
       "command": "pty-mcp-server",
-      "args": ["-y", "/work/haskell/pty-mcp-server/01_pty-mcp-server/pty-mcp-server.yaml"]
+      "args": ["-y", "/work/haskell/pms/pty-mcp-server/pty-mcp-server.yaml"]
     }
   }
 }
