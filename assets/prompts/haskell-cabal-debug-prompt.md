@@ -11,7 +11,7 @@ Ready to receive debugging instructions from the user.
 ## Initialization Procedure (Preparation Phase)
 Before the REPL is ready to accept user requests, the following steps **must be completed**:
 1. **Launch `cabal repl` via `pty-cabal`** — this establishes the PTY session with the REPL.
-2. **Use `pty-message` to send `:load` and load the startup file** 
+2. **Use `pty-message` to send `:load` and load the startup file** (typically Main.hs, app/Main.hs)
 
 ## Purpose
 - Interpret natural language debugging instructions from the user.

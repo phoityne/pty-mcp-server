@@ -90,10 +90,6 @@
           "type": "string",
           "description": "The directory containing the Haskell project. cabal will use this as the working directory."
         },
-        "startupFile": {
-          "type": "string",
-          "description": "The Haskell source file to load on startup, typically Main.hs or the entry point for the application. This should be provided as a full absolute path."
-        },
         "arguments": {
           "type": "array",
           "items": {
@@ -117,10 +113,6 @@
         "projectDir": {
           "type": "string",
           "description": "The directory containing the Haskell project. stack will use this as the working directory."
-        },
-        "startupFile": {
-          "type": "string",
-          "description": "The Haskell source file to load on startup, typically Main.hs or the entry point for the application. This should be provided as a full absolute path."
         },
         "arguments": {
           "type": "array",
