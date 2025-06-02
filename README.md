@@ -203,5 +203,11 @@ This architecture follows a layered and modular approach. Domain models, domain 
 ![Package Structure](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/01-2.png)
 
 ### Demo haskell cabal repl
-![Package Structure](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/demo01.gif)
+![Package Structure](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/demo_cabal.gif)
 ref : [prompt](./assets/prompts/haskell-cabal-debug-prompt.md)
+
+### Demo bash
+![Package Structure](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/demo_bash.gif)
+
+### Demo shellscript
+![Package Structure](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/demo_script.gif)
