@@ -204,4 +204,4 @@ This architecture follows a layered and modular approach. Domain models, domain 
 
 ### Demo haskell cabal repl
 ![Package Structure](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/demo01.gif)
-
+ref : [prompt](./assets/prompts/haskell-cabal-debug-prompt.md)
