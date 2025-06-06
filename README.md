@@ -31,6 +31,10 @@ As an MCP server, `pty-mcp-server` operates strictly in **stdio** mode, communic
   Launches any command through a PTY interface with optional arguments.  
   Great for general-purpose terminal automation.
 
+- **`pty-message`**  
+  Sends input to an existing PTY session (e.g., `df -k`) without needing full context of the current terminal state.  
+  Abstracts interaction in a programmable way.
+
 - **`pty-bash`**  
   Starts an interactive Bash shell (`/bin/bash -i -l`) in a pseudo-terminal.  
   Empowers AI to execute shell commands like a real user.
@@ -50,10 +54,6 @@ As an MCP server, `pty-mcp-server` operates strictly in **stdio** mode, communic
 - **`pty-ghci`**  
   Launches a GHCi session within a specified project directory, loading a target Haskell file.  
   Supports argument passing and live code interaction.
-
-- **`pty-message`**  
-  Sends input to an existing PTY session (e.g., `df -k`) without needing full context of the current terminal state.  
-  Abstracts interaction in a programmable way.
 
 - **`Scriptable CLI Integration`**  
   The `pty-mcp-server` supports execution of shell scripts associated with registered tools defined in `tools-list.json`. Each tool must be registered by name, and a corresponding shell script (`.sh`) should exist in the configured `scripts/` directory.
@@ -120,7 +120,7 @@ This file defines how the `pty-mcp-server` should be launched in a development e
 }
 ```
 
-### config.yaml Configuration ([ref](./configs/pty-mcp-server.yaml))
+### config.yaml Configuration ([ref](https://github.com/phoityne/pty-mcp-server/blob/main/configs/pty-mcp-server.yaml))
 - `logDir`:  
   The directory path where log files will be saved. This includes standard output/error logs and logs from script executions.
 
@@ -204,7 +204,7 @@ This architecture follows a layered and modular approach. Domain models, domain 
 
 ### Demo haskell cabal repl
 ![Package Structure](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/demo_cabal.gif)
-ref : [prompt](./assets/prompts/haskell-cabal-debug-prompt.md)
+ref : [prompt](https://github.com/phoityne/pty-mcp-server/blob/main/assets/prompts/haskell-cabal-debug-prompt.md)
 
 ### Demo bash
 ![Package Structure](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/demo_bash.gif)
