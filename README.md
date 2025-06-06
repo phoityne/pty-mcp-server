@@ -141,7 +141,7 @@ You can install `pty-mcp-server` using `cabal`:
 ```bash
 cabal install pty-mcp-server
 ```
-*Note: The package is currently being prepared for release on Hackage.*
+
 
 ---
 
