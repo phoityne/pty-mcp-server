@@ -142,6 +142,61 @@ You can install `pty-mcp-server` using `cabal`:
 cabal install pty-mcp-server
 ```
 
+### Running with Podman or Docker
+
+You can build and run `pty-mcp-server` using either **Podman** or **Docker**.
+
+**Note:** When running pty-mcp-server inside a Docker container, after establishing a pty connection, you will be operating within the container environment. This should be taken into account when interacting with the server.
+
+#### 1. Build the image
+
+Clone the repository and navigate to the `docker` directory:
+
+```bash
+$ git clone https://github.com/phoityne/pty-mcp-server.git
+$ cd pty-mcp-server/docker
+$ podman build . -t pty-mcp-server-image
+$
+```
+Ref : [build.sh](https://github.com/phoityne/pty-mcp-server/blob/main/docker/build.sh)
+
+#### 2. Run the container
+Run the server inside a container:
+
+```bash
+$ podman run --rm -i \
+--name pty-mcp-server-container \
+-v /path/to/dir:/path/to/dir \
+--hostname pms-docker-container \
+pty-mcp-server-image \
+-y /path/to/dir/config.yaml
+$
+```
+Ref : [run.sh](https://github.com/phoityne/pty-mcp-server/blob/main/docker/run.sh)
+
+Below is an example of how to configure `mcp.json` to run the MCP server within VSCode:
+```json
+{
+  "servers": {
+    "pty-mcp-server": {
+      "type": "stdio",
+      "command": "/path/to/run.sh",
+      "args": []
+      /*
+      "command": "podman",
+      "args": [
+        "run", "--rm", "-i",
+        "--name", "pty-mcp-server-container",
+        "-v", "/path/to/dir:/path/to/dir",
+        "--hostname", "pms-docker-container",
+        "pty-mcp-server-image",
+        "-y", "/path/to/dir/config.yaml"
+      ]
+      */
+    }
+  }
+}
+```
 
 ---
 

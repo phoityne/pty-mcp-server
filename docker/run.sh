@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#!/bin/bash
-
 echo "[INFO] start run.sh" >&2
 
 SCRIPT_PATH="$(readlink -f "${BASH_SOURCE[0]}")"
