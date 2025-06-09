@@ -1,7 +1,7 @@
 FROM almalinux:latest 
 
 RUN dnf update
-RUN dnf -y install gcc gcc-c++ gmp gmp-devel make ncurses xz perl g++ pkg-config zlib zlib-devel openssh-clients
+RUN dnf -y install gcc gcc-c++ gmp gmp-devel make ncurses xz perl g++ pkg-config zlib zlib-devel openssh-clients procps-ng
 
 ENV BOOTSTRAP_HASKELL_NONINTERACTIVE=1
 ENV BOOTSTRAP_HASKELL_GHC_VERSION=9.12.2

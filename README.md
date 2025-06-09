@@ -259,14 +259,85 @@ This architecture follows a layered and modular approach. Domain models, domain 
 
 ### Demo haskell cabal repl
 ![Demo haskell cabal repl](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/demo_cabal.gif)
-ref : [prompt](https://github.com/phoityne/pty-mcp-server/blob/main/assets/prompts/haskell-cabal-debug-prompt.md)
+Ref : [haskell cabal debug prompt](https://github.com/phoityne/pty-mcp-server/blob/main/assets/prompts/haskell-cabal-debug-prompt.md)
+
+1. Target Code Overview  
+A function in MyLib.hs is selected to inspect its runtime state using cabal repl and an AI-driven debug interface.
+2. MCP Server Initialization  
+The MCP server is launched to allow structured interaction between the AI and the debugging commands.
+3. Debugger Prompt and Environment Setup  
+The AI receives a prompt, starts cabal repl, and loads the module to prepare for runtime inspection.
+4. Debugging Execution Begins  
+The target function is executed and paused at a predefined point for runtime observation.
+5. State Inspection and Output  
+Runtime values and control flow are displayed to help verify logic and observe internal behavior.
+6. Summary  
+Integration with pty-msp-server enables automated runtime inspection for Haskell applications.
 
 ### Demo bash
 ![Demo bash](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/demo_bash.gif)
+1. Configure bash-mcp-server in mcp.json  
+In this file, register bash-mcp-server as an MCP server.  
+Specify the command as pty-mcp-server and pass the configuration file config.yaml as an argument.
+2. Settings in config.yaml  
+The config.yaml file defines the log directory, the directory for scripts, and prompt detection patterns.  
+These settings establish the environment for the AI to interact with bash through the PTY.
+3. Place tools-list.json in the scriptsDir  
+You need to place tools-list.json in the directory specified by scriptsDir.  
+This file declares the tools available to the AI, including pty-bash and pty-message.  
+4. AI Connects to Bash and Selects Commands Autonomously  
+The AI connects to bash through the pseudo terminal and 
+decides which commands to execute based on the context.  
+5. Confirming the Command Execution Results  
+The output of the getenforce command shows whether SELinux is in Enforcing mode.  
+This result appears on the terminal or in logs, allowing the user to verify the system status.
+
 
 ### Demo shellscript
 ![Demo shellscript](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/demo_script.gif)
 
+1. mcp.json Configuration  
+Starts the pty-mcp-server in stdio mode, passing config.yaml as an argument.
+2. Overview of config.yaml  
+Specifies log directory, scripts directory, and prompt strings.  
+The tools-list.json in scriptsDir defines which tools are exposed.
+3. Role of tools-list.json  
+Lists available script tools, with only the script_add tool registered here.
+4. Role and Naming Convention of the scripts Folder  
+Stores executable shell scripts called via the mcp server.  
+The tool names in tools-list.json match the shell script filenames in this folder.
+5. Execution from VSCode GitHub Copilot  
+Runs script_add.sh with the command `#script_add 2 3`, executing the addition.
+6. Confirming the Result  
+Returns "5", indicating the operation was successful.
+
 ### Demo Docker
 ![Demo Docker](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/demo_docker.gif)
+
+1. MCP Configuration with Docke  
+This is the mcp.json file. It defines the MCP server startup configuration. In this case, the pty-mcp-server will be launched using a shell script: run.sh. This script uses Podman to start the container.
+2. Starting the MCP Server  
+Here is the run.sh script. It launches the Docker container using podman run, with the correct volume mount, hostname, and image tag. Once executed, the MCP server starts inside the container.
+3. Tool List  
+Next, the list of tools exposed to the client is defined in tools-list.json.
+It includes three tools: pty-message, pty-ssh, a shell script named hostname.sh
+4. Tool Script Directory  
+In config.yaml, the path to the script directory is defined.
+This is where tool scripts like hostname.sh should be placed
+5. Hostname Script  
+The hostname.sh script simply runs the hostname command.
+It is executed as a tool within the container.
+6. Executing hostname from Chat  
+Now, let’s run the hostname tool in the chat.
+This shows the name of the current host, which is the container.  
+As expected, the output is: pms-docker-container
+This confirms that the command is executed inside the Docker container.
+7. Using pty-ssh to Access the Host  
+Next, we use pty-ssh to establish a pty session with the host OS.
+SSH connection is attempted using host.docker.internal, which resolves to the Docker host.  
+After confirming the host identity and entering the password, the login succeeds.
+8. Confirming Host Environment  
+Now that we are connected to the host, we run: cat /etc/redhat-release  
+This confirms that we are now in the host OS, which is CentOS 9.  
+In contrast, the Docker container is running AlmaLinux 9.
 
