@@ -3,6 +3,7 @@ logLevel : "Debug"
 scriptsDir : "/work/haskell/pms/pty-mcp-server/assets/scripts"
 prompts:
   - "ghci>"
+  - "]#"
   - "]$"
   - ")?"
   - "password:"
