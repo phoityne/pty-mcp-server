@@ -75,73 +75,6 @@ As an MCP server, `pty-mcp-server` operates strictly in **stdio** mode, communic
 - Remote server management via SSH
 - Dynamic execution of CLI tools in PTY environments
 
-### Requirements
-
-- GHC >= 9.12
-- Linux environment (PTY support required)
-- On Windows, use within a WSL (Windows Subsystem for Linux) environment
-
-### Dependencies
-
-This package depends on the following packages:  
-- [`pms-ui-request`](https://github.com/phoityne/pms-ui-request)
-- [`pms-ui-response`](https://github.com/phoityne/pms-ui-response)
-- [`pms-infrastructure`](https://github.com/phoityne/pms-infrastructure)
-- [`pms-application-service`](https://github.com/phoityne/pms-application-service)
-- [`pms-domain-service`](https://github.com/phoityne/pms-domain-service)
-- [`pms-domain-model`](https://github.com/phoityne/pms-domain-model)
-
-### How to Run
-
-The `pty-mcp-server` application is executed from the command line.
-
-#### Usage
-
-```sh
-$ pty-mcp-server -y config.yaml
-```
-While the server can be launched directly from the command line, it is typically started and managed by development tools that integrate an MCP client—such as Visual Studio Code. These tools utilize the server to enable interactive and automated command execution via PTY sessions.
-
-#### VSCode Integration: `.vscode/mcp.json`
-
-To streamline development and server invocation from within Visual Studio Code, the project supports a `.vscode/mcp.json` configuration file.
-
-This file defines how the `pty-mcp-server` should be launched in a development environment. Example configuration:
-
-```json
-{
-  "servers": {
-    "pty-mcp-server": {
-      "type": "stdio",
-      "command": "pty-mcp-server",
-      "args": ["-y", "/path/to/your/config.yaml"]
-    }
-  }
-}
-```
-
-### config.yaml Configuration ([ref](https://github.com/phoityne/pty-mcp-server/blob/main/configs/pty-mcp-server.yaml))
-- `logDir`:  
-  The directory path where log files will be saved. This includes standard output/error logs and logs from script executions.
-
-- `logLevel`:  
-  Sets the logging level. Examples include `"Debug"`, `"Info"`, and `"Error"`.
-
-- `scriptsDir`:  
-  Directory containing script files (shell scripts named after tool names, e.g., `ping.sh`). If a script matching the tool name exists here, it will be executed when the tool is called.  
-  This directory must also contain the `tools-list.json` file, which defines the available public tools and their metadata.
-
-- `prompts`:  
-  A list of prompt strings used to detect interactive command prompts. This allows the AI to identify when a command is awaiting input. Examples include `"ghci>"`, `"]$"`, `"password:"`, etc.
-
-### Installation
-
-You can install `pty-mcp-server` using `cabal`:
-
-```bash
-cabal install pty-mcp-server
-```
-
 ### Running with Podman or Docker
 
 You can build and run `pty-mcp-server` using either **Podman** or **Docker**.
@@ -198,120 +131,124 @@ Below is an example of how to configure `mcp.json` to run the MCP server within 
 }
 ```
 
+### Binary Installation
+
+If you prefer to build it yourself, make sure the following requirements are met: 
+- GHC >= 9.12  
+- Linux environment with PTY support  
+- On Windows, use within a WSL (Windows Subsystem for Linux) environment
+
+You can install `pty-mcp-server` using `cabal`:
+
+```bash
+$ cabal install pty-mcp-server
+```
+
+### Binary Execution
+
+The `pty-mcp-server` application is executed from the command line.
+
+#### Usage
+
+```sh
+$ pty-mcp-server -y config.yaml
+```
+While the server can be launched directly from the command line, it is typically started and managed by development tools that integrate an MCP client—such as Visual Studio Code. These tools utilize the server to enable interactive and automated command execution via PTY sessions.
+
+#### VSCode Integration: `.vscode/mcp.json`
+
+To streamline development and server invocation from within Visual Studio Code, the project supports a `.vscode/mcp.json` configuration file.
+
+This file defines how the `pty-mcp-server` should be launched in a development environment. Example configuration:
+
+```json
+{
+  "servers": {
+    "pty-mcp-server": {
+      "type": "stdio",
+      "command": "pty-mcp-server",
+      "args": ["-y", "/path/to/your/config.yaml"]
+    }
+  }
+}
+```
+
+### config.yaml Configuration ([ref](https://github.com/phoityne/pty-mcp-server/blob/main/configs/pty-mcp-server.yaml))
+- `logDir`:  
+  The directory path where log files will be saved. This includes standard output/error logs and logs from script executions.
+
+- `logLevel`:  
+  Sets the logging level. Examples include `"Debug"`, `"Info"`, and `"Error"`.
+
+- `scriptsDir`:  
+  Directory containing script files (shell scripts named after tool names, e.g., `ping.sh`). If a script matching the tool name exists here, it will be executed when the tool is called.  
+  This directory must also contain the `tools-list.json` file, which defines the available public tools and their metadata.
+
+- `prompts`:  
+  A list of prompt strings used to detect interactive command prompts. This allows the AI to identify when a command is awaiting input. Examples include `"ghci>"`, `"]$"`, `"password:"`, etc.
+
+  
 ---
 
-## Architecture Guide (Software Architecture and Technical Details)
+## Demonstrations
 
-### Architectural Strategy
-
-The architecture of the `pty-mcp-server` project is designed with medium-to-large scale systems in mind. Emphasis is placed on **modularity**, **maintainability**, and **scalability**, especially in environments involving multiple teams or organizations.
-
-To achieve these goals, the system is structured as a collection of well-separated packages, each responsible for a specific concern or domain. This package-oriented design provides several strategic benefits.
-
-The overall package structure adheres to the principles of **Onion Architecture**, reflecting a layered design that places the domain model at the core. Furthermore, the **internal module structure within each package** is also guided by a layered approach, maintaining clear separation between pure data definitions, domain services, and infrastructure concerns.
-
----
-
-### Role of `pty-mcp-server` as a Dependency Injector
-
-In addition to managing REPL communication, `pty-mcp-server` is **not merely an executable module**, but also acts as a **dependency injector** for the entire system.
-
-- It is capable of **referencing all relevant PMS packages**, including those that it depends on.
-- This allows it to **construct and wire together application components** across multiple packages and modules in a unified manner.
-- By centralizing this dependency resolution, `pty-mcp-server` provides a single point of control over **cross-cutting dependencies**, improving visibility and control over the system architecture.
-
-As a result, inter-package and inter-module dependencies can be **centrally coordinated and managed**, which promotes better encapsulation, reusability, and testability throughout the system.
-
----
-
-### Rationale for Package Separation
-
-- **Clear Interface Definition**  
-  Each package exposes only its minimal, well-defined public API. This enforces clean module boundaries and reduces unintended dependencies between components.
-
-- **Team and Vendor Ownership**  
-  In larger projects, different teams or external vendors can own specific packages. Clear separation ensures well-defined responsibilities and supports collaborative development across organizational boundaries.
-
-- **Repository and Release Independence**  
-  Packages can be split into separate repositories and versioned independently. This allows for modular development and flexible release workflows, reducing build times and simplifying integration.
-
-- **Improved Maintainability and Extensibility**  
-  By isolating concerns, the impact of code changes is limited to relevant modules. This minimizes regressions and facilitates safe, incremental improvements over time.
-
----
-
-### Intended Use Cases
-
-- Medium-to-large scale enterprise systems involving multiple developers or teams  
-- Modular systems with independent development and release cycles for components  
-- Projects that require long-term maintainability, extensibility, and isolation of concerns
-
----
-
-This architecture follows a layered and modular approach. Domain models, domain services, application logic, and infrastructure concerns are each encapsulated in their own package, enabling clean composition while preserving separation of responsibilities.
+### Demo: Watch AI Create and Launch a Web App from Scratch
+![Demo web service construct](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/demo_web.gif)  
+Ref : [Web Service Construction Agent Prompt](https://github.com/phoityne/pty-mcp-server/blob/main/assets/prompts/web-service-prompt.md)
 
 
-### Deployment Diagram
-![Deployment Diagram](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/01-1.png)
+1. 📌 [Scene 1: Overview & MCP Configuration]  
+In this demo, we’ll show how an AI agent builds and runs a web service inside a Docker container using the `pty-mcp-server`.  
+First, we configure `mcp.json` to launch the MCP server using a shell script.  
+This script starts the Docker container where our PTY-based interaction will take place.
+2. 🐳 [Scene 2: Docker Launch Configuration]  
+The `run.sh` script includes volume mounts, hostname settings, and opens **port 8080**.  
+This allows the container to expose a web service to the host system.
 
-### Package Structure
-![Package Structure](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/01-2.png)
+3. 🚀 [Scene 3: Starting the MCP Server]  
+Now, the container is launched, and the `pty-mcp-server` is running inside it,  
+ready to handle AI-driven requests through a pseudo-terminal.
 
-### Demo haskell cabal repl
-![Demo haskell cabal repl](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/demo_cabal.gif)
-Ref : [haskell cabal debug prompt](https://github.com/phoityne/pty-mcp-server/blob/main/assets/prompts/haskell-cabal-debug-prompt.md)
+4. 🤖 [Scene 4: Connecting the AI Agent]  
+We open the chat interface and send a prompt designed for a web service builder agent.  
+The AI connects to the container’s Bash session via PTY and begins its preparation.
 
-1. Target Code Overview  
-A function in MyLib.hs is selected to inspect its runtime state using cabal repl and an AI-driven debug interface.
-2. MCP Server Initialization  
-The MCP server is launched to allow structured interaction between the AI and the debugging commands.
-3. Debugger Prompt and Environment Setup  
-The AI receives a prompt, starts cabal repl, and loads the module to prepare for runtime inspection.
-4. Debugging Execution Begins  
-The target function is executed and paused at a predefined point for runtime observation.
-5. State Inspection and Output  
-Runtime values and control flow are displayed to help verify logic and observe internal behavior.
-6. Summary  
-Integration with pty-msp-server enables automated runtime inspection for Haskell applications.
+5. 🛠️ [Scene 5: Initial Setup Commands]  
+Following the prompt, the AI starts by:  
+    - Creating a project folder  
+    - Moving into the working directory
 
-### Demo bash
-![Demo bash](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/demo_bash.gif)
-1. Configure bash-mcp-server in mcp.json  
-In this file, register bash-mcp-server as an MCP server.  
-Specify the command as pty-mcp-server and pass the configuration file config.yaml as an argument.
-2. Settings in config.yaml  
-The config.yaml file defines the log directory, the directory for scripts, and prompt detection patterns.  
-These settings establish the environment for the AI to interact with bash through the PTY.
-3. Place tools-list.json in the scriptsDir  
-You need to place tools-list.json in the directory specified by scriptsDir.  
-This file declares the tools available to the AI, including pty-bash and pty-message.  
-4. AI Connects to Bash and Selects Commands Autonomously  
-The AI connects to bash through the pseudo terminal and 
-decides which commands to execute based on the context.  
-5. Confirming the Command Execution Results  
-The output of the getenforce command shows whether SELinux is in Enforcing mode.  
-This result appears on the terminal or in logs, allowing the user to verify the system status.
+6. 📥 [Scene 6: AI Ready to Receive Instructions]  
+Once the environment is ready, we instruct the AI to build a “Hello, world” web service.  
+From here, the AI begins its autonomous construction process.
+
+7. ⚙️ [Scene 7: AI Executes Web Setup Commands]  
+The AI proposes a series of terminal commands.  
+As the user, we review and approve them one by one.  
+Steps include:
+    - Checking for Python
+    - Installing Flask
+    - Writing the source code (`app.py`) to serve “Hello, world”
+    - Running the Flask server
+    - Testing via `curl http://localhost:8080` inside the container
+
+8. 🌐 [Scene 8: Verifying from Outside the Container]  
+To confirm external accessibility, we access the service from the host via **port 8080**.  
+✅ As expected, the response is: **“Hello, world”**
+
+9. 🧾 [Scene 9: Reviewing the Execution History]  
+Finally, we review the AI's actions step by step:
+    - Initialized the Bash session and created the working directory  
+    - Set up the Python environment  
+    - Generated the Flask-based `app.py`  
+    - Launched the web server and validated its operation
+
+10. 🏁 [Scene 10: Conclusion]  
+This demonstrates how AI, combined with the **PTY-MCP-Server** and **Docker**,  
+can automate real development tasks — **interactively**, **intelligently**, and **reproducibly**.
 
 
-### Demo shellscript
-![Demo shellscript](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/demo_script.gif)
-
-1. mcp.json Configuration  
-Starts the pty-mcp-server in stdio mode, passing config.yaml as an argument.
-2. Overview of config.yaml  
-Specifies log directory, scripts directory, and prompt strings.  
-The tools-list.json in scriptsDir defines which tools are exposed.
-3. Role of tools-list.json  
-Lists available script tools, with only the script_add tool registered here.
-4. Role and Naming Convention of the scripts Folder  
-Stores executable shell scripts called via the mcp server.  
-The tool names in tools-list.json match the shell script filenames in this folder.
-5. Execution from VSCode GitHub Copilot  
-Runs script_add.sh with the command `#script_add 2 3`, executing the addition.
-6. Confirming the Result  
-Returns "5", indicating the operation was successful.
-
-### Demo Docker
+### Demo: Docker Execution and Host SSH Access
 ![Demo Docker](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/demo_docker.gif)
 
 1. MCP Configuration with Docke  
@@ -341,3 +278,122 @@ Now that we are connected to the host, we run: cat /etc/redhat-release
 This confirms that we are now in the host OS, which is CentOS 9.  
 In contrast, the Docker container is running AlmaLinux 9.
 
+
+
+### Demo: Interactive Bash via PTY
+![Demo bash](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/demo_bash.gif)
+1. Configure bash-mcp-server in mcp.json  
+In this file, register bash-mcp-server as an MCP server.  
+Specify the command as pty-mcp-server and pass the configuration file config.yaml as an argument.
+2. Settings in config.yaml  
+The config.yaml file defines the log directory, the directory for scripts, and prompt detection patterns.  
+These settings establish the environment for the AI to interact with bash through the PTY.
+3. Place tools-list.json in the scriptsDir  
+You need to place tools-list.json in the directory specified by scriptsDir.  
+This file declares the tools available to the AI, including pty-bash and pty-message.  
+4. AI Connects to Bash and Selects Commands Autonomously  
+The AI connects to bash through the pseudo terminal and 
+decides which commands to execute based on the context.  
+5. Confirming the Command Execution Results  
+The output of the getenforce command shows whether SELinux is in Enforcing mode.  
+This result appears on the terminal or in logs, allowing the user to verify the system status.
+
+
+### Demo: Shell Script Execution
+![Demo shellscript](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/demo_script.gif)
+
+1. mcp.json Configuration  
+Starts the pty-mcp-server in stdio mode, passing config.yaml as an argument.
+2. Overview of config.yaml  
+Specifies log directory, scripts directory, and prompt strings.  
+The tools-list.json in scriptsDir defines which tools are exposed.
+3. Role of tools-list.json  
+Lists available script tools, with only the script_add tool registered here.
+4. Role and Naming Convention of the scripts Folder  
+Stores executable shell scripts called via the mcp server.  
+The tool names in tools-list.json match the shell script filenames in this folder.
+5. Execution from VSCode GitHub Copilot  
+Runs script_add.sh with the command `#script_add 2 3`, executing the addition.
+6. Confirming the Result  
+Returns "5", indicating the operation was successful.
+
+
+### Demo: Haskell Debugging with `cabal repl`
+![Demo haskell cabal repl](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/demo_cabal.gif)  
+Ref : [haskell cabal debug prompt](https://github.com/phoityne/pty-mcp-server/blob/main/assets/prompts/haskell-cabal-debug-prompt.md)
+
+1. Target Code Overview  
+A function in MyLib.hs is selected to inspect its runtime state using cabal repl and an AI-driven debug interface.
+2. MCP Server Initialization  
+The MCP server is launched to allow structured interaction between the AI and the debugging commands.
+3. Debugger Prompt and Environment Setup  
+The AI receives a prompt, starts cabal repl, and loads the module to prepare for runtime inspection.
+4. Debugging Execution Begins  
+The target function is executed and paused at a predefined point for runtime observation.
+5. State Inspection and Output  
+Runtime values and control flow are displayed to help verify logic and observe internal behavior.
+6. Summary  
+Integration with pty-msp-server enables automated runtime inspection for Haskell applications.
+
+---
+
+## Architecture Guide (Software Architecture and Technical Details)
+
+### Architectural Strategy
+
+The architecture of the `pty-mcp-server` project is designed with medium-to-large scale systems in mind. Emphasis is placed on **modularity**, **maintainability**, and **scalability**, especially in environments involving multiple teams or organizations.
+
+To achieve these goals, the system is structured as a collection of well-separated packages, each responsible for a specific concern or domain. This package-oriented design provides several strategic benefits.
+
+The overall package structure adheres to the principles of **Onion Architecture**, reflecting a layered design that places the domain model at the core. Furthermore, the **internal module structure within each package** is also guided by a layered approach, maintaining clear separation between pure data definitions, domain services, and infrastructure concerns.
+
+### Role of `pty-mcp-server` as a Dependency Injector
+
+In addition to managing REPL communication, `pty-mcp-server` is **not merely an executable module**, but also acts as a **dependency injector** for the entire system.
+
+- It is capable of **referencing all relevant PMS packages**, including those that it depends on.
+- This allows it to **construct and wire together application components** across multiple packages and modules in a unified manner.
+- By centralizing this dependency resolution, `pty-mcp-server` provides a single point of control over **cross-cutting dependencies**, improving visibility and control over the system architecture.
+
+As a result, inter-package and inter-module dependencies can be **centrally coordinated and managed**, which promotes better encapsulation, reusability, and testability throughout the system.
+
+### Dependencies
+
+This package depends on the following packages:  
+- [`pms-ui-request`](https://github.com/phoityne/pms-ui-request)
+- [`pms-ui-response`](https://github.com/phoityne/pms-ui-response)
+- [`pms-infrastructure`](https://github.com/phoityne/pms-infrastructure)
+- [`pms-application-service`](https://github.com/phoityne/pms-application-service)
+- [`pms-domain-service`](https://github.com/phoityne/pms-domain-service)
+- [`pms-domain-model`](https://github.com/phoityne/pms-domain-model)
+
+### Rationale for Package Separation
+
+- **Clear Interface Definition**  
+  Each package exposes only its minimal, well-defined public API. This enforces clean module boundaries and reduces unintended dependencies between components.
+
+- **Team and Vendor Ownership**  
+  In larger projects, different teams or external vendors can own specific packages. Clear separation ensures well-defined responsibilities and supports collaborative development across organizational boundaries.
+
+- **Repository and Release Independence**  
+  Packages can be split into separate repositories and versioned independently. This allows for modular development and flexible release workflows, reducing build times and simplifying integration.
+
+- **Improved Maintainability and Extensibility**  
+  By isolating concerns, the impact of code changes is limited to relevant modules. This minimizes regressions and facilitates safe, incremental improvements over time.
+
+### Intended Use Cases
+
+- Medium-to-large scale enterprise systems involving multiple developers or teams  
+- Modular systems with independent development and release cycles for components  
+- Projects that require long-term maintainability, extensibility, and isolation of concerns
+
+This architecture follows a layered and modular approach. Domain models, domain services, application logic, and infrastructure concerns are each encapsulated in their own package, enabling clean composition while preserving separation of responsibilities.
+
+
+### Deployment Diagram
+![Deployment Diagram](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/01-1.png)
+
+### Package Structure
+![Package Structure](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/01-2.png)
+
+----
