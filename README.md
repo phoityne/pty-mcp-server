@@ -362,7 +362,10 @@ As a result, inter-package and inter-module dependencies can be **centrally coor
 This package depends on the following packages:  
 - [`pms-ui-request`](https://github.com/phoityne/pms-ui-request)
 - [`pms-ui-response`](https://github.com/phoityne/pms-ui-response)
+- [`pms-ui-notification`](https://github.com/phoityne/pms-ui-notification)
 - [`pms-infrastructure`](https://github.com/phoityne/pms-infrastructure)
+- [`pms-infra-cmdrun`](https://github.com/phoityne/pms-infra-cmdrun)
+- [`pms-infra-watch`](https://github.com/phoityne/pms-infra-watch)
 - [`pms-application-service`](https://github.com/phoityne/pms-application-service)
 - [`pms-domain-service`](https://github.com/phoityne/pms-domain-service)
 - [`pms-domain-model`](https://github.com/phoityne/pms-domain-model)
