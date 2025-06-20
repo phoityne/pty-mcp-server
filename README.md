@@ -56,15 +56,15 @@ As an MCP server, `pty-mcp-server` operates strictly in **stdio** mode, communic
   Supports argument passing and live code interaction.
 
 - **`Scriptable CLI Integration`**  
-  The `pty-mcp-server` supports execution of shell scripts associated with registered tools defined in `tools-list.json`. Each tool must be registered by name, and a corresponding shell script (`.sh`) should exist in the configured `scripts/` directory.
+  The `pty-mcp-server` supports execution of shell scripts associated with registered tools defined in `tools-list.json`. Each tool must be registered by name, and a corresponding shell script (`.sh`) should exist in the configured `tools/` directory.
 
   This design supports AI-driven workflows by exposing tool interfaces through a predictable scripting mechanism. The AI can issue tool invocations by name, and the server transparently manages execution and interaction.  
   To add a new tool:
-    1. Create a shell script named `your-tool.sh` in the `scripts/` directory.
+    1. Create a shell script named `your-tool.sh` in the `tools/` directory.
     2. Add an entry in `tools-list.json` with the name `"your-tool"` and appropriate metadata.
     3. No need to recompile or modify the server — tools are dynamically resolved by name.
 
-  This separation of tool definitions (`tools-list.json`) and implementation (`scripts/your-tool.sh`) ensures clean decoupling and simplifies extensibility.
+  This separation of tool definitions (`tools-list.json`) and implementation (`tools/your-tool.sh`) ensures clean decoupling and simplifies extensibility.
 
 
 ### Example Use Cases
@@ -180,7 +180,7 @@ This file defines how the `pty-mcp-server` should be launched in a development e
 - `logLevel`:  
   Sets the logging level. Examples include `"Debug"`, `"Info"`, and `"Error"`.
 
-- `scriptsDir`:  
+- `toolsDir`:  
   Directory containing script files (shell scripts named after tool names, e.g., `ping.sh`). If a script matching the tool name exists here, it will be executed when the tool is called.  
   This directory must also contain the `tools-list.json` file, which defines the available public tools and their metadata.
 
@@ -286,10 +286,10 @@ In contrast, the Docker container is running AlmaLinux 9.
 In this file, register bash-mcp-server as an MCP server.  
 Specify the command as pty-mcp-server and pass the configuration file config.yaml as an argument.
 2. Settings in config.yaml  
-The config.yaml file defines the log directory, the directory for scripts, and prompt detection patterns.  
+The config.yaml file defines the log directory, the directory for tools, and prompt detection patterns.  
 These settings establish the environment for the AI to interact with bash through the PTY.
-3. Place tools-list.json in the scriptsDir  
-You need to place tools-list.json in the directory specified by scriptsDir.  
+3. Place tools-list.json in the toolsDir  
+You need to place tools-list.json in the directory specified by toolsDir.  
 This file declares the tools available to the AI, including pty-bash and pty-message.  
 4. AI Connects to Bash and Selects Commands Autonomously  
 The AI connects to bash through the pseudo terminal and 
@@ -305,11 +305,11 @@ This result appears on the terminal or in logs, allowing the user to verify the 
 1. mcp.json Configuration  
 Starts the pty-mcp-server in stdio mode, passing config.yaml as an argument.
 2. Overview of config.yaml  
-Specifies log directory, scripts directory, and prompt strings.  
-The tools-list.json in scriptsDir defines which tools are exposed.
+Specifies log directory, tools directory, and prompt strings.  
+The tools-list.json in toolsDir defines which tools are exposed.
 3. Role of tools-list.json  
 Lists available script tools, with only the script_add tool registered here.
-4. Role and Naming Convention of the scripts Folder  
+4. Role and Naming Convention of the tools Folder  
 Stores executable shell scripts called via the mcp server.  
 The tool names in tools-list.json match the shell script filenames in this folder.
 5. Execution from VSCode GitHub Copilot  
