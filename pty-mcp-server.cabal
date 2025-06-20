@@ -55,13 +55,13 @@ extra-doc-files:    README.md,
 -- extra-source-files:
 
 executable pty-mcp-server
-    ghc-options: -Wall -static
+    ghc-options: -Wall -static -threaded
 
     -- .hs or .lhs file containing the Main module.
     main-is:          Main.hs
 
     -- Modules included in this executable, other than Main.
-    -- other-modules:
+    other-modules:    Paths_pty_mcp_server
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
@@ -72,7 +72,10 @@ executable pty-mcp-server
                       optparse-applicative,
                       pms-ui-request,
                       pms-ui-response,
+                      pms-ui-notification,
                       pms-infrastructure,
+                      pms-infra-cmdrun,
+                      pms-infra-watch,
                       pms-application-service,
                       pms-domain-service,
                       pms-domain-model

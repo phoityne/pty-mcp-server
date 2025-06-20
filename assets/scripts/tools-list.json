@@ -22,7 +22,11 @@
       ]
     }
   },
-
+  {
+    "name": "pty-terminate",
+    "description": "Forcefully terminates an active pseudo-terminal (PTY) connection.",
+    "inputSchema": {}
+  },
   {
     "name": "pty-message",
     "description": "pms-messages is a tool for sending structured instructions or commands to a running PTY session. It abstracts direct terminal input, allowing the LLM (MCP client) to interact with the PTY process in a controlled and programmable way without needing to know what is running inside.",
