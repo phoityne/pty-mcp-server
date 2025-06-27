@@ -9,7 +9,6 @@ All AI systems must remain strictly under human oversight and control.
 Use responsibly, with full awareness and at your own risk.  
 
 ----
-
 ## 📘 Overview
 
 **`pty-mcp-server`** is a Haskell implementation of an **MCP (Model Context Protocol) server** that enables AI agents to dynamically acquire and control **PTY (pseudo-terminal) sessions**, allowing interaction with real system environments through terminal-based interfaces.
@@ -20,23 +19,29 @@ The server communicates exclusively via **standard input/output (stdio)**, ensur
 
 ### 🎯 Purpose
 
-- Provide AI agents with **TTY-based control capabilities**
-- Enable **automated configuration, inspection, and operation** using CLI tools
-- Facilitate **AI-driven workflows for system development, diagnostics, and remote interaction**
-- Allow AI agents to access and operate on **systems beyond the reach of static scripts or APIs**
+- Provide AI agents with **TTY-based control capabilities**  
+- Enable **automated configuration, inspection, and operation** using CLI tools  
+- Facilitate **AI-driven workflows for system development, diagnostics, and remote interaction**  
+- Allow AI agents to access and operate on **systems beyond the reach of static scripts or APIs**  
+- Support **Infrastructure as Code (IaC)** scenarios requiring **interactive or stateful terminal workflows**  
+- Assist in **system integration** across heterogeneous environments and legacy systems  
+- Empower **AI agents to support DevOps, IaC, and integration pipelines** by operating tools that require human-like terminal interaction  
 
 ---
 
 ### 🔧 Example Use Cases
 
-- **Dynamic execution of CLI tools** that require a PTY environment
-embedded systems over serial or SSH-based terminals
-- **REPL automation**: driving GHCi or other CLI-based interactive interpreters
-- **Interactive debugging** of Haskell applications or shell-based workflows
-- **System diagnostics** through scripted or interactive bash sessions
-- **Remote server management** using SSH
-- **Hands-on system operation** where CLI behavior cannot be emulated via non-interactive scripting
-- **Network device interaction**: configuring routers, switches, or 
+- **Dynamic execution of CLI tools** that require a PTY environment  
+  (e.g., embedded systems over serial or SSH-based terminals)  
+- **REPL automation**: driving GHCi or other CLI-based interactive interpreters  
+- **Interactive debugging** of Haskell applications or shell-based workflows  
+- **System diagnostics** through scripted or interactive bash sessions  
+- **Remote server management** using SSH  
+- **Hands-on system operation** where CLI behavior cannot be emulated via non-interactive scripting  
+- **Network device interaction**: configuring routers, switches, or appliances via console  
+- **AI-assisted IaC workflows**: executing Terraform, Ansible, or shell-based deploy scripts that involve prompts, state reconciliation, or real-time input  
+- **AI-driven system integration testing** across multiple environments and CLI tools  
+- **Legacy system automation** where GUI/API is unavailable and only terminal interaction is supported  
 
 
 ---
