@@ -10,13 +10,34 @@ Use responsibly, with full awareness and at your own risk.
 
 ----
 
-`pty-mcp-server` is a Haskell implementation of the MCP (Model Context Protocol),
-designed to enable AI agents to acquire and control PTY (pseudo-terminal) connections dynamically.
+## 📘 Overview
 
-Through MCP, AI can interact with external CLI-based tools in a structured, automated, and scriptable way,  
-leveraging PTY interfaces to execute tasks in real environments.
+**`pty-mcp-server`** is a Haskell implementation of an **MCP (Model Context Protocol) server** that enables AI agents to dynamically acquire and control **PTY (pseudo-terminal) sessions**, allowing interaction with real system environments through terminal-based interfaces.
 
-As an MCP server, `pty-mcp-server` operates strictly in **stdio** mode, communicating with MCP clients exclusively via standard input and output (stdio).
+The server communicates exclusively via **standard input/output (stdio)**, ensuring simple and secure integration with MCP clients. Through this interface, AI agents can execute commands, retrieve system states, and apply configurations—just as a human operator would through a terminal.
+
+---
+
+### 🎯 Purpose
+
+- Provide AI agents with **TTY-based control capabilities**
+- Enable **automated configuration, inspection, and operation** using CLI tools
+- Facilitate **AI-driven workflows for system development, diagnostics, and remote interaction**
+- Allow AI agents to access and operate on **systems beyond the reach of static scripts or APIs**
+
+---
+
+### 🔧 Example Use Cases
+
+- **Dynamic execution of CLI tools** that require a PTY environment
+embedded systems over serial or SSH-based terminals
+- **REPL automation**: driving GHCi or other CLI-based interactive interpreters
+- **Interactive debugging** of Haskell applications or shell-based workflows
+- **System diagnostics** through scripted or interactive bash sessions
+- **Remote server management** using SSH
+- **Hands-on system operation** where CLI behavior cannot be emulated via non-interactive scripting
+- **Network device interaction**: configuring routers, switches, or 
+
 
 ---
 
@@ -65,15 +86,6 @@ As an MCP server, `pty-mcp-server` operates strictly in **stdio** mode, communic
     3. No need to recompile or modify the server — tools are dynamically resolved by name.
 
   This separation of tool definitions (`tools-list.json`) and implementation (`tools/your-tool.sh`) ensures clean decoupling and simplifies extensibility.
-
-
-### Example Use Cases
-
-- Performing interactive REPL operations (e.g., using GHCi or other CLI-based REPLs)
-- Interactive debugging of Haskell applications
-- System diagnostics through bash scripting
-- Remote server management via SSH
-- Dynamic execution of CLI tools in PTY environments
 
 ### Running with Podman or Docker
 

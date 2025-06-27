@@ -67,19 +67,35 @@ executable pty-mcp-server
     -- other-extensions:
 
     -- Other library packages from which modules are imported.
-    build-depends:    base ^>=4.21.0.0,
-                      safe-exceptions,
-                      optparse-applicative,
-                      pms-ui-request,
-                      pms-ui-response,
-                      pms-ui-notification,
-                      pms-infrastructure,
-                      pms-infra-cmdrun,
-                      pms-infra-procspawn,
-                      pms-infra-watch,
-                      pms-application-service,
-                      pms-domain-service,
-                      pms-domain-model
+    if os(windows)
+        build-depends:
+            base ^>=4.21.0.0,
+            safe-exceptions,
+            optparse-applicative,
+            pms-ui-request,
+            pms-ui-response,
+            pms-ui-notification,
+            pms-infra-cmdrun,
+            pms-infra-procspawn,
+            pms-infra-watch,
+            pms-application-service,
+            pms-domain-service,
+            pms-domain-model
+    else
+        build-depends:
+            base ^>=4.21.0.0,
+            safe-exceptions,
+            optparse-applicative,
+            pms-ui-request,
+            pms-ui-response,
+            pms-ui-notification,
+            pms-infrastructure,
+            pms-infra-cmdrun,
+            pms-infra-procspawn,
+            pms-infra-watch,
+            pms-application-service,
+            pms-domain-service,
+            pms-domain-model
 
     -- Directories containing source files.
     hs-source-dirs:   app
