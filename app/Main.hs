@@ -16,6 +16,7 @@ import qualified PMS.UI.Response.App.Control as URS
 import qualified PMS.UI.Notification.App.Control as UNO
 import qualified PMS.Infrastructure.App.Control as INF
 import qualified PMS.Infra.CmdRun.App.Control as ICR
+import qualified PMS.Infra.ProcSpawn.App.Control as IPS
 import qualified PMS.Infra.Watch.App.Control as IWA
 import qualified PMS.Domain.Service.App.Control as DSR
 
@@ -23,7 +24,7 @@ import qualified PMS.Domain.Service.App.Control as DSR
 --
 main :: IO ()
 main = getArgs >>= \args -> do
-  let apps = [URQ.run, URS.run, UNO.run, INF.run, ICR.run, IWA.run, DSR.run]
+  let apps = [URQ.run, URS.run, UNO.run, INF.run, ICR.run, IPS.run, IWA.run, DSR.run]
   flip E.catchAny exception
      $ flip E.finally finalize
        $ A.run args apps
