@@ -159,7 +159,50 @@
       ]
     }
   },
-
+  {
+    "name": "proc-spawn",
+    "description": "Spawns an external process using the specified arguments and enables interactive communication via standard input and output. Unlike PTY-based execution, this communicates directly with the process using the runProcess function without allocating a pseudo-terminal. Suitable for non-TUI, stdin/stdout-based interactive programs.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "command": {
+          "type": "string",
+          "description": "Name of the command to run."
+        },
+        "arguments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of arguments for the command."
+        }
+      },
+      "required": [
+        "command"
+      ]
+    }
+  },
+  {
+    "name": "proc-terminate",
+    "description": "Forcefully terminates a running process created via runProcess.",
+    "inputSchema": {}
+  },
+  {
+    "name": "proc-message",
+    "description": "Sends structured text-based instructions or commands to a subprocess started with runProcess. It provides a programmable interface for interacting with the process via standard input.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "arguments": {
+          "type": "string",
+          "description": "df -k"
+        }
+      },
+      "required": [
+        "arguments"
+      ]
+    }
+  },
   {
     "name": "ping",
     "description": "Sends ICMP echo requests to a specified host to check network connectivity and measure response times.",

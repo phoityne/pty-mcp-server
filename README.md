@@ -57,6 +57,9 @@ The server communicates exclusively via **standard input/output (stdio)**, ensur
   Launches any command through a PTY interface with optional arguments.  
   Great for general-purpose terminal automation.
 
+- **`pty-terminate`**  
+  Forcefully terminates an active pseudo-terminal (PTY) connection.
+
 - **`pty-message`**  
   Sends input to an existing PTY session (e.g., `df -k`) without needing full context of the current terminal state.  
   Abstracts interaction in a programmable way.
@@ -81,6 +84,15 @@ The server communicates exclusively via **standard input/output (stdio)**, ensur
   Launches a GHCi session within a specified project directory, loading a target Haskell file.  
   Supports argument passing and live code interaction.
 
+- **`proc-spawn`**  
+  Spawns an external process using the specified arguments and enables interactive communication via standard input and output. Unlike PTY-based execution, this communicates directly with the process using the runProcess function without allocating a pseudo-terminal. Suitable for non-TUI, stdin/stdout-based interactive programs.
+
+- **`proc-terminate`**  
+  Forcefully terminates a running process created via runProcess.
+
+- **`proc-message`**  
+  Sends structured text-based instructions or commands to a subprocess started with runProcess. It provides a programmable interface for interacting with the process via standard input.
+
 - **`Scriptable CLI Integration`**  
   The `pty-mcp-server` supports execution of shell scripts associated with registered tools defined in `tools-list.json`. Each tool must be registered by name, and a corresponding shell script (`.sh`) should exist in the configured `tools/` directory.
 
@@ -91,6 +103,10 @@ The server communicates exclusively via **standard input/output (stdio)**, ensur
     3. No need to recompile or modify the server — tools are dynamically resolved by name.
 
   This separation of tool definitions (`tools-list.json`) and implementation (`tools/your-tool.sh`) ensures clean decoupling and simplifies extensibility.
+
+> **Note:**  
+> Commands starting with `pty-` are not supported on Windows. These tools rely on POSIX-style pseudo terminals (PTY), which are not natively available in the Windows environment.
+
 
 ### Running with Podman or Docker
 
@@ -152,8 +168,6 @@ Below is an example of how to configure `mcp.json` to run the MCP server within 
 
 If you prefer to build it yourself, make sure the following requirements are met: 
 - GHC >= 9.12  
-- Linux environment with PTY support  
-- On Windows, use within a WSL (Windows Subsystem for Linux) environment
 
 You can install `pty-mcp-server` using `cabal`:
 
