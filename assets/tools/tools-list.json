@@ -85,6 +85,26 @@
   },
 
   {
+    "name": "pty-telnet",
+    "description": "Launches the telnet command within a pseudo-terminal (PTY) session. This allows interactive communication with a remote Telnet server, enabling the AI to respond to prompts such as 'login:' or 'Password:' just like a human user. The PTY environment ensures that the terminal behaves like a real TTY device, which is required for many Telnet servers.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "arguments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Arguments to be passed to the telnet command, such as user, host, and optional flags."
+        }
+      },
+      "required": [
+        "arguments"
+      ]
+    }
+  },
+
+  {
     "name": "pty-cabal",
     "description": "Launches a cabal repl session in a pseudo-terminal using the specified project directory, main source file, and arguments.",
     "inputSchema": {
