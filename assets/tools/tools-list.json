@@ -183,6 +183,17 @@
     }
   },
   {
+    "name": "proc-cmd",
+    "description": "",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+      },
+      "required": [
+      ]
+    }
+  },
+  {
     "name": "proc-terminate",
     "description": "Forcefully terminates a running process created via runProcess.",
     "inputSchema": {}
