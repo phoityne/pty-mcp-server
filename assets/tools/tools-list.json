@@ -183,17 +183,6 @@
     }
   },
   {
-    "name": "proc-cmd",
-    "description": "",
-    "inputSchema": {
-      "type": "object",
-      "properties": {
-      },
-      "required": [
-      ]
-    }
-  },
-  {
     "name": "proc-terminate",
     "description": "Forcefully terminates a running process created via runProcess.",
     "inputSchema": {}
@@ -214,6 +203,49 @@
       ]
     }
   },
+  {
+    "name": "proc-cmd",
+    "description": "The `proc-cmd` tool launches the Windows Command Prompt (`cmd.exe`) as a subprocess. It allows the AI to interact with the standard Windows shell environment, enabling execution of batch commands, file operations, and system configuration tasks in a familiar terminal interface.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+      },
+      "required": [
+      ]
+    }
+  },
+  {
+    "name": "proc-ps",
+    "description": "`proc-ps` launches the Windows PowerShell (`powershell.exe`) as a subprocess. It provides an interactive command-line environment where the AI can execute PowerShell commands, scripts, and system administration tasks. The shell is started with default options to keep it open and ready for further input.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+      },
+      "required": [
+      ]
+    }
+  },
+
+  {
+    "name": "proc-ssh",
+    "description": "proc-ssh` launches an SSH client (`ssh`) as a subprocess using `runProcess`. It enables the AI to initiate remote connections to other systems via the Secure Shell protocol. The tool can be used to execute remote commands, access remote shells, or tunnel services over SSH. The required `arguments` field allows specifying the target user, host, and any SSH options (e.g., `-p`, `-i`, `-L`).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "arguments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Arguments to be passed to the SSH command, such as user, host, and optional flags."
+        }
+      },
+      "required": [
+        "arguments"
+      ]
+    }
+  },
+
   {
     "name": "ping",
     "description": "Sends ICMP echo requests to a specified host to check network connectivity and measure response times.",
