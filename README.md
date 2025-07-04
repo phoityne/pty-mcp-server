@@ -131,28 +131,6 @@ The server communicates exclusively via **standard input/output (stdio)**, ensur
 > **Note:**  
 > Commands starting with `pty-` are not supported on Windows. These tools rely on POSIX-style pseudo terminals (PTY), which are not natively available in the Windows environment.
 
-
-### Setup via `.dxt` Archive
-
-`.dxt` is a simple archive format inspired by the [`dxt`](https://github.com/anthropics/dxt) project.  
-It is essentially a `.zip` file with a `.dxt` extension. You can unzip it by renaming the extension to `.zip`.
-
-To set up `pty-mcp-server` using a `.dxt` archive, follow these steps:
-
-1. **Download the `.dxt` file**  
-   Get the archive file from the [`pms-dxt`](https://github.com/phoityne/pms-dxt/download/) project.
-
-2. **Rename the file extension**  
-   Change the file extension from `.dxt` to `.zip`.
-
-3. **Extract the archive**  
-   Unzip the renamed file to a location of your choice.
-
-4. **Add `bin` directory to your PATH**  
-   After extraction, add the `bin` directory (which contains the `pty-mcp-server` binary) to your system’s `PATH` environment variable so you can run it from anywhere.
-
-
-
 ### Running with Podman or Docker
 
 You can build and run `pty-mcp-server` using either **Podman** or **Docker**.

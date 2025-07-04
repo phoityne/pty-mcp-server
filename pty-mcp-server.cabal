@@ -55,6 +55,7 @@ extra-doc-files:    README.md,
 -- extra-source-files:
 
 executable pty-mcp-server
+--    ghc-options: -Wall -static -threaded -optl-static -optl-pthread -optl-ldl -O2 -split-sections -optl-Wl,--gc-sections -optl-s
     ghc-options: -Wall -static -threaded
 
     -- .hs or .lhs file containing the Main module.
