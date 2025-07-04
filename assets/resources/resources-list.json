@@ -1,0 +1,8 @@
+[
+  {
+    "name": "pms_hello",
+    "uri": "pms_hello.md",
+    "description": "hello world from pty-mcp-server.",
+    "mimeType":"text/markdown"
+  }
+]

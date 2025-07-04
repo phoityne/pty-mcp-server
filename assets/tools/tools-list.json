@@ -29,7 +29,7 @@
   },
   {
     "name": "pty-message",
-    "description": "pms-messages is a tool for sending structured instructions or commands to a running PTY session. It abstracts direct terminal input, allowing the LLM (MCP client) to interact with the PTY process in a controlled and programmable way without needing to know what is running inside.",
+    "description": "pms-messages is a tool for sending structured instructions or commands to a running PTY session. It abstracts direct terminal input, allowing the LLM (MCP client) to interact with the PTY process in a controlled and programmable way.",
     "inputSchema": {
       "type": "object",
       "properties": {
@@ -248,7 +248,7 @@
 
   {
     "name": "proc-ssh",
-    "description": "proc-ssh` launches an SSH client (`ssh`) as a subprocess using `runProcess`. It enables the AI to initiate remote connections to other systems via the Secure Shell protocol. The tool can be used to execute remote commands, access remote shells, or tunnel services over SSH. The required `arguments` field allows specifying the target user, host, and any SSH options (e.g., `-p`, `-i`, `-L`).",
+    "description": "`proc-ssh` launches an SSH client (`ssh`) as a subprocess using `runProcess`. It enables the AI to initiate remote connections to other systems via the Secure Shell protocol. The tool can be used to execute remote commands, access remote shells, or tunnel services over SSH. The required `arguments` field allows specifying the target user, host, and any SSH options (e.g., `-p`, `-i`, `-L`).",
     "inputSchema": {
       "type": "object",
       "properties": {
@@ -266,6 +266,106 @@
     }
   },
 
+  {
+    "name": "socket-open",
+    "description": "This tool initiates a socket connection to the specified host and port.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "host": {
+          "type": "string",
+          "description": "The hostname or IP address to connect to (e.g., '127.0.0.1' or 'localhost')."
+        },
+        "port": {
+          "type": "string",
+          "description": "The port number to connect to, provided as a string (e.g., '5000')."
+        }
+      },
+      "required": [
+        "host",
+        "port"
+      ]
+    }
+  },
+  {
+    "name": "socket-close",
+    "description": "This tool close active socket connection that was previously established using the 'socket-opne' tool.",
+    "inputSchema": {}
+  },
+  {
+    "name": "socket-read",
+    "description": "Reads the specified number of bytes from the socket. The 'size' parameter indicates how many bytes to read.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "size": {
+          "type": "integer",
+          "description": "The number of bytes to read from the socket"
+        }
+      },
+      "required": [
+        "size"
+      ]
+    }
+  },
+  {
+    "name": "socket-write",
+    "description": "Write a sequence of bytes to the socket",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 255
+          },
+          "description": "An array of byte values (integers between 0 and 255) to send"
+        }
+      },
+      "required": [
+        "data"
+      ]
+    }
+  },
+  {
+    "name": "socket-message",
+    "description": "This tool sends a message over the active socket connection.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "arguments": {
+          "type": "string",
+          "description": "The message content to be sent over the socket connection."
+        }
+      },
+      "required": [
+        "arguments"
+      ]
+    }
+  },
+  {
+    "name": "socket-telnet",
+    "description": "A simple Telnet-like communication tool over raw TCP sockets. This tool connects to a specified host and port, sends and receives data, and removes any Telnet IAC (Interpret As Command) sequences from the communication stream. Note: This is a simplified Telnet implementation and does not support full Telnet protocol features.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "host": {
+          "type": "string",
+          "description": "The hostname or IP address to connect to (e.g., '127.0.0.1' or 'localhost')."
+        },
+        "port": {
+          "type": "string",
+          "description": "The port number to connect to, provided as a string (e.g., '5000')."
+        }
+      },
+      "required": [
+        "host",
+        "port"
+      ]
+    }
+  },
   {
     "name": "ping",
     "description": "Sends ICMP echo requests to a specified host to check network connectivity and measure response times.",

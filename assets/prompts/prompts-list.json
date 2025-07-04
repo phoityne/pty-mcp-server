@@ -1,0 +1,18 @@
+[
+  {
+    "name": "build_web_service",
+    "description": "Build a web service in a Linux environment with root privileges, using pty-bash and the specified port.",
+    "arguments": [
+      {
+        "name": "port",
+        "description": "Port number on which the web service must listen.",
+        "required": true
+      },
+      {
+        "name": "language",
+        "description": "Programming language to use for building the web service (e.g., Python, Node.js, Go).",
+        "required": true
+      }
+    ]
+  }
+]
