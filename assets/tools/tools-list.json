@@ -25,7 +25,7 @@
   {
     "name": "pty-terminate",
     "description": "Forcefully terminates an active pseudo-terminal (PTY) connection.",
-    "inputSchema": {}
+    "inputSchema": {"type": "object"}
   },
   {
     "name": "pty-message",
@@ -205,7 +205,7 @@
   {
     "name": "proc-terminate",
     "description": "Forcefully terminates a running process created via runProcess.",
-    "inputSchema": {}
+    "inputSchema": {"type": "object"}
   },
   {
     "name": "proc-message",
@@ -290,7 +290,7 @@
   {
     "name": "socket-close",
     "description": "This tool close active socket connection that was previously established using the 'socket-opne' tool.",
-    "inputSchema": {}
+    "inputSchema": {"type": "object"}
   },
   {
     "name": "socket-read",
