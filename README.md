@@ -198,6 +198,16 @@ You can install `pty-mcp-server` using `cabal`:
 $ cabal install pty-mcp-server
 ```
 
+### Installation via `.dxt` Package
+
+You can also set up the tool using a pre-packaged `.dxt` file.  
+This method is suitable for quick installation into Claude Code or for manual setup via extraction.
+
+> 🛠️ The `.dxt` package distribution is currently **in preparation**,  
+> but you can check the latest status and download links at:  
+> [https://github.com/phoityne/pms-dxt](https://github.com/phoityne/pms-dxt)
+
+
 ### Binary Execution
 
 The `pty-mcp-server` application is executed from the command line.
