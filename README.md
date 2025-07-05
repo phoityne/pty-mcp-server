@@ -258,8 +258,9 @@ This file defines how the `pty-mcp-server` should be launched in a development e
 
 ### AI handles Binary Protocol Dialogues via pty-mcp-server
 ![Demo socket telnet](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/demo_socket_telnet.gif)  
-Ref : [socket-telnet-Prompt](https://github.com/phoityne/pty-mcp-server/blob/main/assets/prompts/socket-telnet-prompt.md)
+Ref : [socket-telnet-prompt](https://github.com/phoityne/pty-mcp-server/blob/main/assets/prompts/socket-telnet-prompt.md)
 
+This video demonstrates a Telnet login sequence powered by the MCP prompt defined in [socket-telnet-prompt.md](https://github.com/phoityne/pty-mcp-server/blob/main/assets/prompts/socket-telnet-prompt.md). Using tools like `socket-open`, `socket-read`, `socket-write`, and `socket-message`, the AI performs Telnet negotiation, handles prompts, and submits credentials. Binary responses are parsed and displayed in human-readable form.
 
 
 ### Demo: Watch AI Create and Launch a Web App from Scratch
