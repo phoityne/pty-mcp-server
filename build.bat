@@ -1,6 +1,6 @@
 @echo off
 
-@rem cabal update
+cabal update
 cabal clean
 cabal configure
 cabal build --enable-executable-static
