@@ -260,6 +260,8 @@ This file defines how the `pty-mcp-server` should be launched in a development e
 ![Demo socket telnet](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/demo_socket_telnet.gif)  
 Ref : [Web Service Construction Agent Prompt](https://github.com/phoityne/pty-mcp-server/blob/main/assets/prompts/socket-telnet.md)
 
+
+
 ### Demo: Watch AI Create and Launch a Web App from Scratch
 ![Demo web service construct](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/demo_web.gif)  
 Ref : [Web Service Construction Agent Prompt](https://github.com/phoityne/pty-mcp-server/blob/main/assets/prompts/web-service-prompt.md)
