@@ -70,7 +70,7 @@ executable pty-mcp-server
     -- Other library packages from which modules are imported.
     if os(windows)
         build-depends:
-            base ^>=4.21.0.0,
+            base,
             safe-exceptions,
             optparse-applicative,
             pms-ui-request,
@@ -78,6 +78,7 @@ executable pty-mcp-server
             pms-ui-notification,
             pms-infra-cmdrun,
             pms-infra-procspawn,
+            pms-infra-serial,
             pms-infra-socket,
             pms-infra-watch,
             pms-application-service,
@@ -85,7 +86,7 @@ executable pty-mcp-server
             pms-domain-model
     else
         build-depends:
-            base ^>=4.21.0.0,
+            base,
             safe-exceptions,
             optparse-applicative,
             pms-ui-request,
@@ -94,6 +95,7 @@ executable pty-mcp-server
             pms-infrastructure,
             pms-infra-cmdrun,
             pms-infra-procspawn,
+            pms-infra-serial,
             pms-infra-socket,
             pms-infra-watch,
             pms-application-service,

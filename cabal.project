@@ -6,6 +6,7 @@ packages:
   ../pms-infrastructure
   ../pms-infra-cmdrun
   ../pms-infra-procspawn
+  ../pms-infra-serial
   ../pms-infra-socket
   ../pms-infra-watch
   ../pms-application-service

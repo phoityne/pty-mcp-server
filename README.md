@@ -190,7 +190,7 @@ Below is an example of how to configure `mcp.json` to run the MCP server within 
 ### Binary Installation
 
 If you prefer to build it yourself, make sure the following requirements are met: 
-- GHC >= 9.12  
+- GHC >= 9.6
 
 You can install `pty-mcp-server` using `cabal`:
 
