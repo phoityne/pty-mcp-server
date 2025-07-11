@@ -508,9 +508,13 @@ This architecture follows a layered and modular approach. Domain models, domain 
 
 
 ### Deployment Diagram
-![Deployment Diagram](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/01-1.png)
+![Deployment Diagram](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/01_deploy_structure.png)
 
 ### Package Structure
-![Package Structure](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/01_package_structure.png)
+![Package Structure](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/02_package_structure.png)
+
+### Thread Structure
+![Thread Structure](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/03_thread_structure.png)
+
 
 ----
