@@ -117,6 +117,23 @@ The server communicates exclusively via **standard input/output (stdio)**, ensur
 - **`socket-telnet`**  
   A simple Telnet-like communication tool over raw TCP sockets. This tool connects to a specified host and port, sends and receives data, and removes any Telnet IAC (Interpret As Command) sequences from the communication stream. Note: This is a simplified Telnet implementation and does not support full Telnet protocol features.
 
+
+- **`serial-open`**  
+  Opens a serial port connection to a specified device with a given baud rate. Commonly used to access on-premises hardware or network devices via console.
+
+- **`serial-close`**  
+  This tool close active serial connection that was previously established using the 'serial-open' tool.
+
+- **`serial-read`**  
+  Reads the specified number of bytes from the serial. The 'size' parameter indicates how many bytes to read.
+
+- **`serial-write`**  
+  Write a sequence of bytes to the serial.
+
+- **`serial-message`**  
+  This tool sends a specified string to the active socket connection, then waits for a recognizable prompt from the remote side. Upon detecting the prompt, it captures and returns all output received prior to it.
+
+
 - **`Scriptable CLI Integration`**  
   The `pty-mcp-server` supports execution of shell scripts associated with registered tools defined in `tools-list.json`. Each tool must be registered by name, and a corresponding shell script (`.sh`) should exist in the configured `tools/` directory.
 
@@ -262,38 +279,63 @@ Ref : [socket-telnet-prompt](https://github.com/phoityne/pty-mcp-server/blob/mai
 
 This video demonstrates a Telnet login sequence powered by the MCP prompt defined in [socket-telnet-prompt.md](https://github.com/phoityne/pty-mcp-server/blob/main/assets/prompts/socket-telnet-prompt.md). Using tools like `socket-open`, `socket-read`, `socket-write`, and `socket-message`, the AI performs Telnet negotiation, handles prompts, and submits credentials. Binary responses are parsed and displayed in human-readable form.
 
+### Network Device Version Check via Serial Connection — powered by pty-mcp-server.
+![Demo serial](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/demo_serial.gif)  
+Ref : [serial-nw-check-prompt](https://github.com/phoityne/pty-mcp-server/blob/main/assets/prompts/serial-nw-check-prompt.md)
+
+This video demonstrates how `pty-mcp-server` enables AI-assisted automation over a serial connection to a network device.
+
+1. Device Setup
+The user specifies the communication port and baud rate.  
+**Example:** `COM3`, 9600 baud on Windows.
+
+2. Login Interaction
+The AI prompts for a username and password,  
+and uses them to log in to the network device.
+
+3. Device Version Retrieval
+After logging in, the AI sends a command  
+to retrieve the installed OS or firmware version.
+
+4. Online Version Check
+The AI accesses the official website to check the latest available version,  
+and compares it with the installed version.
+
+5. Session Termination
+Once the check is complete, the AI logs out and cleanly closes the serial connection.
+
 
 ### Demo: Watch AI Create and Launch a Web App from Scratch
 ![Demo web service construct](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/demo_web.gif)  
 Ref : [Web Service Construction Agent Prompt](https://github.com/phoityne/pty-mcp-server/blob/main/assets/prompts/web-service-prompt.md)
 
 
-1. 📌 [Scene 1: Overview & MCP Configuration]  
+1. [Scene 1: Overview & MCP Configuration]  
 In this demo, we’ll show how an AI agent builds and runs a web service inside a Docker container using the `pty-mcp-server`.  
 First, we configure `mcp.json` to launch the MCP server using a shell script.  
 This script starts the Docker container where our PTY-based interaction will take place.
-2. 🐳 [Scene 2: Docker Launch Configuration]  
+2. [Scene 2: Docker Launch Configuration]  
 The `run.sh` script includes volume mounts, hostname settings, and opens **port 8080**.  
 This allows the container to expose a web service to the host system.
 
-3. 🚀 [Scene 3: Starting the MCP Server]  
+3. [Scene 3: Starting the MCP Server]  
 Now, the container is launched, and the `pty-mcp-server` is running inside it,  
 ready to handle AI-driven requests through a pseudo-terminal.
 
-4. 🤖 [Scene 4: Connecting the AI Agent]  
+4. [Scene 4: Connecting the AI Agent]  
 We open the chat interface and send a prompt designed for a web service builder agent.  
 The AI connects to the container’s Bash session via PTY and begins its preparation.
 
-5. 🛠️ [Scene 5: Initial Setup Commands]  
+5. [Scene 5: Initial Setup Commands]  
 Following the prompt, the AI starts by:  
     - Creating a project folder  
     - Moving into the working directory
 
-6. 📥 [Scene 6: AI Ready to Receive Instructions]  
+6. [Scene 6: AI Ready to Receive Instructions]  
 Once the environment is ready, we instruct the AI to build a “Hello, world” web service.  
 From here, the AI begins its autonomous construction process.
 
-7. ⚙️ [Scene 7: AI Executes Web Setup Commands]  
+7. [Scene 7: AI Executes Web Setup Commands]  
 The AI proposes a series of terminal commands.  
 As the user, we review and approve them one by one.  
 Steps include:
@@ -303,18 +345,17 @@ Steps include:
     - Running the Flask server
     - Testing via `curl http://localhost:8080` inside the container
 
-8. 🌐 [Scene 8: Verifying from Outside the Container]  
-To confirm external accessibility, we access the service from the host via **port 8080**.  
-✅ As expected, the response is: **“Hello, world”**
+8. [Scene 8: Verifying from Outside the Container]  
+To confirm external accessibility, we access the service from the host via **port 8080**.  As expected, the response is: **“Hello, world”**
 
-9. 🧾 [Scene 9: Reviewing the Execution History]  
+9. [Scene 9: Reviewing the Execution History]  
 Finally, we review the AI's actions step by step:
     - Initialized the Bash session and created the working directory  
     - Set up the Python environment  
     - Generated the Flask-based `app.py`  
     - Launched the web server and validated its operation
 
-10. 🏁 [Scene 10: Conclusion]  
+10. [Scene 10: Conclusion]  
 This demonstrates how AI, combined with the **PTY-MCP-Server** and **Docker**,  
 can automate real development tasks — **interactively**, **intelligently**, and **reproducibly**.
 

@@ -381,6 +381,87 @@
         "arguments"
       ]
     }
+  },
+
+
+  {
+    "name": "serial-open",
+    "description": "Opens a serial port connection to a specified device with a given baud rate. Commonly used to access on-premises hardware or network devices via console.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "device": {
+          "type": "string",
+          "description": "The path or name of the serial device. On Linux/macOS, use paths like /dev/ttyUSB0; on Windows, use names like COM3."
+        },
+        "speed": {
+          "type": "integer",
+          "description": "Baud rate for communication (e.g., 9600, 115200). Must match the target device's configuration."
+        }
+      },
+      "required": [
+        "device",
+        "speed"
+      ]
+    }
+  },
+  {
+    "name": "serial-close",
+    "description": "This tool close active serial connection that was previously established using the 'serial-open' tool.",
+    "inputSchema": {"type": "object"}
+  },
+  {
+    "name": "serial-read",
+    "description": "Reads the specified number of bytes from the serial. The 'size' parameter indicates how many bytes to read.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "size": {
+          "type": "integer",
+          "description": "The number of bytes to read from the serial"
+        }
+      },
+      "required": [
+        "size"
+      ]
+    }
+  },
+  {
+    "name": "serial-write",
+    "description": "Write a sequence of bytes to the serial",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 255
+          },
+          "description": "An array of byte values (integers between 0 and 255) to send"
+        }
+      },
+      "required": [
+        "data"
+      ]
+    }
+  },
+  {
+    "name": "serial-message",
+    "description": "This tool sends a specified string to the active socket connection, then waits for a recognizable prompt from the remote side. Upon detecting the prompt, it captures and returns all output received prior to it.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "arguments": {
+          "type": "string",
+          "description": "The message content to be sent over the serial connection."
+        }
+      },
+      "required": [
+        "arguments"
+      ]
+    }
   }
 
 ]

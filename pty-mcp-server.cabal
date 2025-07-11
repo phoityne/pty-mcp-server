@@ -1,4 +1,4 @@
-cabal-version:      3.12
+cabal-version: >= 1.2
 -- The cabal-version field refers to the version of the .cabal specification,
 -- and can be different from the cabal-install (the tool) version and the
 -- Cabal (the library) version you are using. As such, the Cabal (the library)
@@ -106,4 +106,4 @@ executable pty-mcp-server
     hs-source-dirs:   app
 
     -- Base language which the package is written in.
-    default-language: GHC2021
+    -- default-language: GHC2021
