@@ -5,7 +5,7 @@ RUN dnf -y install gcc gcc-c++ gmp gmp-devel make ncurses xz perl g++ pkg-config
 
 ENV BOOTSTRAP_HASKELL_NONINTERACTIVE=1
 ENV BOOTSTRAP_HASKELL_GHC_VERSION=9.6.7
-ENV BOOTSTRAP_HASKELL_CABAL_VERSION=3.12.1.0
+ENV BOOTSTRAP_HASKELL_CABAL_VERSION=3.10.3.0
 RUN bash -c "curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh"
 
 RUN echo "export PATH=$PATH:/root/.local/bin:/root/.ghcup/bin:/root/.cabal/bin" >> /root/.bashrc
