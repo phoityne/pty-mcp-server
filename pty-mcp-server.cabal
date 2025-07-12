@@ -70,7 +70,7 @@ executable pty-mcp-server
     -- Other library packages from which modules are imported.
     if os(windows)
         build-depends:
-            base,
+            base >= 4.18 && < 5,
             safe-exceptions,
             optparse-applicative,
             pms-ui-request,
@@ -86,7 +86,7 @@ executable pty-mcp-server
             pms-domain-model
     else
         build-depends:
-            base,
+            base >= 4.18 && < 5,
             safe-exceptions,
             optparse-applicative,
             pms-ui-request,
