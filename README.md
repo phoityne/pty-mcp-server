@@ -478,6 +478,7 @@ This package depends on the following packages:
 - [`pms-infrastructure`](https://github.com/phoityne/pms-infrastructure)
 - [`pms-infra-cmdrun`](https://github.com/phoityne/pms-infra-cmdrun)
 - [`pms-infra-procspawn`](https://github.com/phoityne/pms-infra-procspanw)
+- [`pms-infra-serial`](https://github.com/phoityne/pms-infra-serial)
 - [`pms-infra-socket`](https://github.com/phoityne/pms-infra-socket)
 - [`pms-infra-watch`](https://github.com/phoityne/pms-infra-watch)
 - [`pms-application-service`](https://github.com/phoityne/pms-application-service)

@@ -366,23 +366,6 @@
       ]
     }
   },
-  {
-    "name": "ping",
-    "description": "Sends ICMP echo requests to a specified host to check network connectivity and measure response times.",
-    "inputSchema": {
-      "type": "object",
-      "properties": {
-        "arguments": {
-          "type": "string",
-          "description": "The target host or IP address, along with optional ping command arguments (e.g., '-c 4 www.google.com')."
-        }
-      },
-      "required": [
-        "arguments"
-      ]
-    }
-  },
-
 
   {
     "name": "serial-open",
@@ -462,6 +445,22 @@
         "arguments"
       ]
     }
-  }
+  },
 
+  {
+    "name": "pms_ping",
+    "description": "Sends ICMP echo requests to a specified host to check network connectivity and measure response times.(linux-only)",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "arguments": {
+          "type": "string",
+          "description": "The target host or IP address, along with optional ping command arguments (e.g., '-c 4 www.google.com')."
+        }
+      },
+      "required": [
+        "arguments"
+      ]
+    }
+  }
 ]
