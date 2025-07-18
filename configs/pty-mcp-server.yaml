@@ -12,3 +12,33 @@ prompts:
   - 'Password:'
   - 'password:'
   - 'ghci>'
+
+# not yet implemented parameters.
+environment:
+  ProgramData: "C:\\ProgramData"
+  SystemRoot: "C:\\Windows"
+timeoutMicrosec: 1000000
+invalidChars:
+  - '&&'
+  - '||'
+  - '|'
+  - '..'
+invalidWinCmds:
+  - del
+  - erase
+  - rd
+  - rmdir
+  - format
+  - shutdown
+  - restart
+  - taskkill
+invalidLinuxCmds:
+  - rm
+  - mv
+  - dd
+  - chmod
+  - chown
+  - shutdown
+  - reboot
+  - kill
+  - nc
