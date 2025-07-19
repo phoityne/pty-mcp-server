@@ -99,6 +99,12 @@ The server communicates exclusively via **standard input/output (stdio)**, ensur
 - **`proc-ssh`**  
   `proc-ssh` launches an SSH client (`ssh`) as a subprocess using `runProcess`. It enables the AI to initiate remote connections to other systems via the Secure Shell protocol. The tool can be used to execute remote commands, access remote shells, or tunnel services over SSH. The required `arguments` field allows specifying the target user, host, and any SSH options (e.g., `-p`, `-i`, `-L`).
 
+- **`proc-telnet`**  
+  A tool that runs Telnet sessions by internally using PuTTY's plink executable. This enables interactive Telnet connections on Windows without requiring an external pseudo-terminal emulator like winpty. Users supply the Telnet command arguments, which are passed directly to plink to establish the session. (Note: plink.exe must be available in the system PATH.)
+
+- **`proc-plink`**  
+  A Windows tool that launches an interactive console application via plink, a command-line SSH and Telnet client. Suitable for executing SSH or Telnet sessions directly without needing an external PTY emulator. (Note: plink.exe must be available in the system PATH.)
+
 - **`socket-open`**  
   This tool initiates a socket connection to the specified host and port.
 
@@ -254,7 +260,7 @@ This file defines how the `pty-mcp-server` should be launched in a development e
 }
 ```
 
-### config.yaml Configuration ([ref](https://github.com/phoityne/pty-mcp-server/blob/main/configs/pty-mcp-server.yaml))
+### config.yaml Configuration ([ref](https://github.com/phoityne/pms-missions/blob/main/0001_default-assets/pty-mcp-server.yaml))
 - `logDir`:  
   The directory path where log files will be saved. This includes standard output/error logs and logs from script executions.
 
@@ -275,13 +281,13 @@ This file defines how the `pty-mcp-server` should be launched in a development e
 
 ### AI handles Binary Protocol Dialogues via pty-mcp-server
 ![Demo socket telnet](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/demo_socket_telnet.gif)  
-Ref : [socket-telnet-prompt](https://github.com/phoityne/pty-mcp-server/blob/main/assets/prompts/socket-telnet-prompt.md)
+Ref : [socket-telnet-prompt](https://github.com/phoityne/pms-missions/blob/main/0004_socket_binary_com/pty-mcp-server/prompts/socket-telnet-prompt.md)
 
-This video demonstrates a Telnet login sequence powered by the MCP prompt defined in [socket-telnet-prompt.md](https://github.com/phoityne/pty-mcp-server/blob/main/assets/prompts/socket-telnet-prompt.md). Using tools like `socket-open`, `socket-read`, `socket-write`, and `socket-message`, the AI performs Telnet negotiation, handles prompts, and submits credentials. Binary responses are parsed and displayed in human-readable form.
+This video demonstrates a Telnet login sequence powered by the MCP prompt defined in [socket-telnet-prompt.md](https://github.com/phoityne/pms-missions/blob/main/0004_socket_binary_com/pty-mcp-server/prompts/socket-telnet-prompt.md). Using tools like `socket-open`, `socket-read`, `socket-write`, and `socket-message`, the AI performs Telnet negotiation, handles prompts, and submits credentials. Binary responses are parsed and displayed in human-readable form.
 
 ### Network Device Version Check via Serial Connection — powered by pty-mcp-server.
 ![Demo serial](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/demo_serial.gif)  
-Ref : [serial-nw-check-prompt](https://github.com/phoityne/pty-mcp-server/blob/main/assets/prompts/serial-nw-check-prompt.md)
+Ref : [serial-nw-setting-prompt](https://github.com/phoityne/pms-missions/blob/main/0005_serial_nw_setting/pty-mcp-server/prompts/serial-nw-setting-prompt.md)
 
 This video demonstrates how `pty-mcp-server` enables AI-assisted automation over a serial connection to a network device.
 
@@ -307,7 +313,7 @@ Once the check is complete, the AI logs out and cleanly closes the serial connec
 
 ### Demo: Watch AI Create and Launch a Web App from Scratch
 ![Demo web service construct](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/demo_web.gif)  
-Ref : [Web Service Construction Agent Prompt](https://github.com/phoityne/pty-mcp-server/blob/main/assets/prompts/web-service-prompt.md)
+Ref : [Web Service Construction Agent Prompt](https://github.com/phoityne/pms-missions/blob/main/0006_web_service_construction/pty-mcp-server/prompts/web-service-prompt.md)
 
 
 1. [Scene 1: Overview & MCP Configuration]  
@@ -432,7 +438,7 @@ Returns "5", indicating the operation was successful.
 
 ### Demo: Haskell Debugging with `cabal repl`
 ![Demo haskell cabal repl](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/demo_cabal.gif)  
-Ref : [haskell cabal debug prompt](https://github.com/phoityne/pty-mcp-server/blob/main/assets/prompts/haskell-cabal-debug-prompt.md)
+Ref : [haskell cabal debug prompt](https://github.com/phoityne/pms-missions/blob/main/0007_cabal_debugging/pty-mcp-server/prompts/haskell-cabal-debug-prompt.md)
 
 1. Target Code Overview  
 A function in MyLib.hs is selected to inspect its runtime state using cabal repl and an AI-driven debug interface.

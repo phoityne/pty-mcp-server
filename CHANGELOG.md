@@ -1,5 +1,9 @@
 # Revision history for pty-mcp-server
 
+## 0.0.7.0 -- 2025-07-20
+
+* Added proc tool.
+
 ## 0.0.6.0 -- 2025-07-13
 
 * Added serial tool.
