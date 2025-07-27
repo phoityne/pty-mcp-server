@@ -1,5 +1,9 @@
 # Revision history for pty-mcp-server
 
+## 0.0.8.0 -- 2025-07-27
+
+* Fixed resources templates.
+
 ## 0.0.7.0 -- 2025-07-20
 
 * Added proc tool.
