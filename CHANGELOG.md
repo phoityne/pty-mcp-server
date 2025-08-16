@@ -1,5 +1,13 @@
 # Revision history for pty-mcp-server
 
+## 0.1.0.0 -- 2025-08-17
+
+* Fixed proc-message.
+
+## 0.0.9.0 -- 2025-08-11
+
+* Fixed encoding.
+
 ## 0.0.8.0 -- 2025-08-11
 
 * Fixed encoding.
