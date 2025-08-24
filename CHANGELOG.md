@@ -1,5 +1,9 @@
 # Revision history for pty-mcp-server
 
+## 0.1.1.0 -- 2025-08-24
+
+* Fixed exception handle.
+
 ## 0.1.0.0 -- 2025-08-17
 
 * Fixed proc-message.
