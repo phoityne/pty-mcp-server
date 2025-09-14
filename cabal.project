@@ -3,7 +3,7 @@ packages:
   ../pms-ui-request
   ../pms-ui-response
   ../pms-ui-notification
-  ../pms-infrastructure
+  -- ../pms-infrastructure
   ../pms-infra-cmdrun
   ../pms-infra-procspawn
   ../pms-infra-serial

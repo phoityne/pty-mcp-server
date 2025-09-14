@@ -1,4 +1,7 @@
 # Revision history for pty-mcp-server
+## 0.1.3.0 -- 2025-09-15
+
+* Fixed validateMessage.
 
 ## 0.1.2.0 -- 2025-09-07
 
