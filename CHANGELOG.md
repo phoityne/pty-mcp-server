@@ -1,4 +1,9 @@
 # Revision history for pty-mcp-server
+
+## 0.1.4.0 -- 2025-09-23
+
+* Support base64 image tool response.
+
 ## 0.1.3.0 -- 2025-09-15
 
 * Fixed validateMessage.
