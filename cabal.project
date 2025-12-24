@@ -5,6 +5,7 @@ packages:
   ../pms-ui-notification
   ../pms-infrastructure
   ../pms-infra-cmdrun
+  ../pms-infra-filesystem
   ../pms-infra-procspawn
   ../pms-infra-serial
   ../pms-infra-socket

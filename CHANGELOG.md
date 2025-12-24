@@ -1,5 +1,9 @@
 # Revision history for pty-mcp-server
 
+## 0.1.5.0 -- 2025-12-31
+
+* Add file system tools.
+
 ## 0.1.4.0 -- 2025-09-23
 
 * Support base64 image tool response.
