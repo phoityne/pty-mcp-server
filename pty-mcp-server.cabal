@@ -81,6 +81,7 @@ executable pty-mcp-server
             pms-infra-serial,
             pms-infra-socket,
             pms-infra-watch,
+            pms-infra-filesystem,
             pms-application-service,
             pms-domain-service,
             pms-domain-model
@@ -98,6 +99,7 @@ executable pty-mcp-server
             pms-infra-serial,
             pms-infra-socket,
             pms-infra-watch,
+            pms-infra-filesystem,
             pms-application-service,
             pms-domain-service,
             pms-domain-model
