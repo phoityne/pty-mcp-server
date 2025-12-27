@@ -139,6 +139,14 @@ The server communicates exclusively via **standard input/output (stdio)**, ensur
 - **`serial-message`**  
   This tool sends a specified string to the active socket connection, then waits for a recognizable prompt from the remote side. Upon detecting the prompt, it captures and returns all output received prior to it.
 
+- **`pms-list-dir`**  
+  List the contents of a directory at the specified path.
+
+- **`pms-read-file`**  
+  Read the contents of a file at the specified path.
+
+- **`pms-write-file`**  
+  Write contents to a file at the specified path.
 
 - **`Scriptable CLI Integration`**  
   The `pty-mcp-server` supports execution of shell scripts associated with registered tools defined in `tools-list.json`. Each tool must be registered by name, and a corresponding shell script (`.sh`) should exist in the configured `tools/` directory.
