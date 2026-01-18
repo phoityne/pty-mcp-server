@@ -1,5 +1,9 @@
 # Revision history for pty-mcp-server
 
+## 0.1.6.0 -- 2026-01-31
+
+* Add file system make dir tools.
+
 ## 0.1.5.0 -- 2025-12-31
 
 * Add file system tools.
