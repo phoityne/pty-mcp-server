@@ -90,6 +90,12 @@ The server communicates exclusively via **standard input/output (stdio)**, ensur
 - **`proc-message`**  
   Sends structured text-based instructions or commands to a subprocess started with runProcess. It provides a programmable interface for interacting with the process via standard input.
 
+- **`proc-read`**  
+  Reads available output from the active PTY session without blocking. If no data is available, returns an empty string.",
+
+- **`proc-write`**  
+  Writes input data to the active PTY session and returns immediately without waiting for completion.",
+
 - **`proc-cmd`**  
   The `proc-cmd` tool launches the Windows Command Prompt (`cmd.exe`) as a subprocess. It allows the AI to interact with the standard Windows shell environment, enabling execution of batch commands, file operations, and system configuration tasks in a familiar terminal interface.
 
@@ -141,6 +147,9 @@ The server communicates exclusively via **standard input/output (stdio)**, ensur
 
 - **`pms-list-dir`**  
   List the contents of a directory at the specified path.
+
+- **`pms-make-dir`**  
+  Create a directory at the specified path. Missing parent directories will also be created.",
 
 - **`pms-read-file`**  
   Read the contents of a file at the specified path.
