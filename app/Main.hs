@@ -17,6 +17,7 @@ import qualified PMS.UI.Response.App.Control as URS
 import qualified PMS.UI.Notification.App.Control as UNO
 import qualified PMS.Infra.CmdRun.App.Control as ICR
 import qualified PMS.Infra.ProcSpawn.App.Control as IPS
+import qualified PMS.Infra.Agent.Process.App.Control as IAP
 import qualified PMS.Infra.Serial.App.Control as SER
 import qualified PMS.Infra.Socket.App.Control as SCK
 import qualified PMS.Infra.Watch.App.Control as IWA
@@ -33,9 +34,9 @@ import qualified PMS.Infrastructure.App.Control as INF
 main :: IO ()
 main = getArgs >>= \args -> do
 #ifdef mingw32_HOST_OS
-  let apps = [URQ.run, URS.run, UNO.run, ICR.run, IPS.run, IWA.run, IFS.run, DSR.run, SCK.run, SER.run]
+  let apps = [URQ.run, URS.run, UNO.run, ICR.run, IPS.run, IAP.run, IWA.run, IFS.run, DSR.run, SCK.run, SER.run]
 #else
-  let apps = [URQ.run, URS.run, UNO.run, ICR.run, IPS.run, IWA.run, IFS.run, DSR.run, SCK.run, SER.run, INF.run]
+  let apps = [URQ.run, URS.run, UNO.run, ICR.run, IPS.run, IAP.run, IWA.run, IFS.run, DSR.run, SCK.run, SER.run, INF.run]
 #endif
   flip E.catchAny exception
      $ flip E.finally finalize

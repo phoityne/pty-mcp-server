@@ -20,7 +20,7 @@ name:               pty-mcp-server
 -- PVP summary:     +-+------- breaking API changes
 --                  | | +----- non-breaking API additions
 --                  | | | +--- code changes with no API change
-version:            0.1.7.0
+version:            0.1.8.0
 
 -- A short (one-line) description of the package.
 synopsis:           pty-mcp-server
@@ -78,6 +78,7 @@ executable pty-mcp-server
             pms-ui-notification,
             pms-infra-cmdrun,
             pms-infra-procspawn,
+            pms-infra-agent-process,
             pms-infra-serial,
             pms-infra-socket,
             pms-infra-watch,
@@ -96,6 +97,7 @@ executable pty-mcp-server
             pms-infrastructure,
             pms-infra-cmdrun,
             pms-infra-procspawn,
+            pms-infra-agent-process,
             pms-infra-serial,
             pms-infra-socket,
             pms-infra-watch,
@@ -109,3 +111,6 @@ executable pty-mcp-server
 
     -- Base language which the package is written in.
     default-language: Haskell2010
+
+
+---

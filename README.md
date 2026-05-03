@@ -53,82 +53,48 @@ The server communicates exclusively via **standard input/output (stdio)**, ensur
 `pty-mcp-server` provides the following built-in tools for powerful and flexible automation:
 
 #### Available Tools
-- **`pty-connect`**  
-  Runs a command via a pseudo-terminal (pty) to interact with external tools or services, with optional arguments.
 
-- **`pty-terminate`**  
-  Forcefully terminates an active pseudo-terminal (PTY) connection.
+- **`agent-proc-run`**  
+  Spawns an external process with the specified command and options. The process's stdin/stdout are connected for subsequent agent-proc-read and agent-proc-write operations. Only one process can be active at a time.
 
-- **`pty-message`**  
-  pms-messages is a tool for sending structured instructions or commands to a running PTY session. It abstracts direct terminal input, allowing the LLM (MCP client) to interact with the PTY process in a controlled and programmable way.
+- **`agent-proc-read`**  
+  Reads up to the specified number of bytes from the stdout of the running process. Returns immediately with available data (non-blocking). Returns an empty string if no data is available.
 
-- **`pty-bash`**  
-  pty-bash is a tool that launches a bash shell in a pseudo terminal (PTY). It allows the LLM (MCP client) to interact with a real Linux shell in an interactive terminal (PTY). This enables AI to run system commands, collect information, and handle prompts or TUI-based tools as if operated by a human, making it effective for dynamic Linux-based automation and diagnostics.
+- **`agent-proc-write`**  
+  Writes the specified string to the stdin of the running process.
 
-- **`pty-ssh`**  
-  Establishes an SSH session in a pseudo-terminal with the specified arguments, allowing interaction with remote systems.
+- **`agent-proc-terminate`**  
+  Forcefully terminates the currently running process. Resets internal state so agent-proc-run can be called again.
 
-- **`pty-telnet`**  
-  Launches the telnet command within a pseudo-terminal (PTY) session. This allows interactive communication with a remote Telnet server, enabling the AI to respond to prompts such as 'login:' or 'Password:' just like a human user. The PTY environment ensures that the terminal behaves like a real TTY device, which is required for many Telnet servers.
+- **`pms-list-dir`**  
+  List the contents of a directory at the specified path.
 
-- **`pty-cabal`**  
-  Launches a cabal repl session within a specified project directory, loading a target Haskell file.  
-  Supports argument passing and live code interaction.
+- **`pms-make-dir`**  
+  Create a directory at the specified path. Missing parent directories will also be created.
 
-- **`pty-stack`**  
-  Launches a stack repl session in a pseudo-terminal using the specified project directory, main source file, and arguments.
+- **`pms-read-file`**  
+  Read the contents of a file at the specified path.
 
-- **`pty-ghci`**  
-  Launches a GHCi session in a pseudo-terminal using the specified project directory, main source file, and arguments.
-
-- **`proc-spawn`**  
-  Spawns an external process using the specified arguments and enables interactive communication via standard input and output. Unlike PTY-based execution, this communicates directly with the process using the runProcess function without allocating a pseudo-terminal. Suitable for non-TUI, stdin/stdout-based interactive programs.
-
-- **`proc-terminate`**  
-  Forcefully terminates a running process created via runProcess.
-
-- **`proc-message`**  
-  Sends structured text-based instructions or commands to a subprocess started with runProcess. It provides a programmable interface for interacting with the process via standard input.
-
-- **`proc-read`**  
-  Reads available output from the active PTY session without blocking. If no data is available, returns an empty string.",
-
-- **`proc-write`**  
-  Writes input data to the active PTY session and returns immediately without waiting for completion.",
-
-- **`proc-cmd`**  
-  The `proc-cmd` tool launches the Windows Command Prompt (`cmd.exe`) as a subprocess. It allows the AI to interact with the standard Windows shell environment, enabling execution of batch commands, file operations, and system configuration tasks in a familiar terminal interface.
-
-- **`proc-ps`**  
-  `proc-ps` launches the Windows PowerShell (`powershell.exe`) as a subprocess. It provides an interactive command-line environment where the AI can execute PowerShell commands, scripts, and system administration tasks. The shell is started with default options to keep it open and ready for further input.
-
-- **`proc-ssh`**  
-  `proc-ssh` launches an SSH client (`ssh`) as a subprocess using `runProcess`. It enables the AI to initiate remote connections to other systems via the Secure Shell protocol. The tool can be used to execute remote commands, access remote shells, or tunnel services over SSH. The required `arguments` field allows specifying the target user, host, and any SSH options (e.g., `-p`, `-i`, `-L`).
-
-- **`proc-telnet`**  
-  A tool that runs Telnet sessions by internally using PuTTY's plink executable. This enables interactive Telnet connections on Windows without requiring an external pseudo-terminal emulator like winpty. Users supply the Telnet command arguments, which are passed directly to plink to establish the session. (Note: plink.exe must be available in the system PATH.)
-
-- **`proc-plink`**  
-  A Windows tool that launches an interactive console application via plink, a command-line SSH and Telnet client. Suitable for executing SSH or Telnet sessions directly without needing an external PTY emulator. (Note: plink.exe must be available in the system PATH.)
+- **`pms-write-file`**  
+  Write contents to a file at the specified path.
 
 - **`socket-open`**  
   This tool initiates a socket connection to the specified host and port.
 
 - **`socket-close`**  
-  This tool close active socket connection that was previously established using the 'socket-opne' tool.
+  This tool close active socket connection that was previously established using the 'socket-open' tool.
 
 - **`socket-read`**  
   Reads the specified number of bytes from the socket. The 'size' parameter indicates how many bytes to read.
 
 - **`socket-write`**  
-  Write a sequence of bytes to the socket
+  Write a sequence of bytes to the socket.
 
 - **`socket-message`**  
-  This tool sends a specified string to the active socket connection, then waits for a recognizable prompt from the remote side. Upon detecting the prompt, it captures and returns all output received prior to it.
+  This tool sends a message over the active socket connection.
 
 - **`socket-telnet`**  
   A simple Telnet-like communication tool over raw TCP sockets. This tool connects to a specified host and port, sends and receives data, and removes any Telnet IAC (Interpret As Command) sequences from the communication stream. Note: This is a simplified Telnet implementation and does not support full Telnet protocol features.
-
 
 - **`serial-open`**  
   Opens a serial port connection to a specified device with a given baud rate. Commonly used to access on-premises hardware or network devices via console.
@@ -145,17 +111,62 @@ The server communicates exclusively via **standard input/output (stdio)**, ensur
 - **`serial-message`**  
   This tool sends a specified string to the active socket connection, then waits for a recognizable prompt from the remote side. Upon detecting the prompt, it captures and returns all output received prior to it.
 
-- **`pms-list-dir`**  
-  List the contents of a directory at the specified path.
+- **`pty-bash`**  
+  pty-bash is a tool that launches a bash shell in a pseudo terminal (PTY). It allows the LLM (MCP client) to interact with a real Linux shell in an interactive terminal (PTY). This enables AI to run system commands, collect information, and handle prompts or TUI-based tools as if operated by a human, making it effective for dynamic Linux-based automation and diagnostics. (Note: This tool is duplicated by agent-proc-run, which provides equivalent functionality with a more agent-friendly interface.)
 
-- **`pms-make-dir`**  
-  Create a directory at the specified path. Missing parent directories will also be created.",
+- **`pty-ssh`**  
+  Establishes an SSH session in a pseudo-terminal with the specified arguments, allowing interaction with remote systems. (Note: This tool is duplicated by agent-proc-run, which provides equivalent functionality with a more agent-friendly interface.)
 
-- **`pms-read-file`**  
-  Read the contents of a file at the specified path.
+- **`pty-telnet`**  
+  Launches the telnet command within a pseudo-terminal (PTY) session. This allows interactive communication with a remote Telnet server, enabling the AI to respond to prompts such as 'login:' or 'Password:' just like a human user. The PTY environment ensures that the terminal behaves like a real TTY device, which is required for many Telnet servers. (Note: This tool is duplicated by agent-proc-run, which provides equivalent functionality with a more agent-friendly interface.)
 
-- **`pms-write-file`**  
-  Write contents to a file at the specified path.
+- **`pty-cabal`**  
+  Launches a cabal repl session in a pseudo-terminal using the specified project directory, main source file, and arguments. (Note: This tool is duplicated by agent-proc-run, which provides equivalent functionality with a more agent-friendly interface.)
+
+- **`pty-stack`**  
+  Launches a stack repl session in a pseudo-terminal using the specified project directory, main source file, and arguments. (Note: This tool is duplicated by agent-proc-run, which provides equivalent functionality with a more agent-friendly interface.)
+
+- **`pty-ghci`**  
+  Launches a GHCi session in a pseudo-terminal using the specified project directory, main source file, and arguments. (Note: This tool is duplicated by agent-proc-run, which provides equivalent functionality with a more agent-friendly interface.)
+
+- **`pty-connect`**  
+  Runs a command via a pseudo-terminal (pty) to interact with external tools or services, with optional arguments. (Note: This tool is duplicated by agent-proc-run, which provides equivalent functionality with a more agent-friendly interface.)
+
+- **`pty-message`**  
+  pms-messages is a tool for sending structured instructions or commands to a running PTY session. It abstracts direct terminal input, allowing the LLM (MCP client) to interact with the PTY process in a controlled and programmable way. (Note: This tool is duplicated by agent-proc-write, which provides equivalent functionality with a more agent-friendly interface.)
+
+- **`pty-terminate`**  
+  Forcefully terminates an active pseudo-terminal (PTY) connection. (Note: This tool is duplicated by agent-proc-terminate, which provides equivalent functionality with a more agent-friendly interface.)
+
+- **`proc-cmd`**  
+  The `proc-cmd` tool launches the Windows Command Prompt (`cmd.exe`) as a subprocess. It allows the AI to interact with the standard Windows shell environment, enabling execution of batch commands, file operations, and system configuration tasks in a familiar terminal interface. (Note: This tool is duplicated by agent-proc-run, which provides equivalent functionality with a more agent-friendly interface.)
+
+- **`proc-ps`**  
+  `proc-ps` launches the Windows PowerShell (`powershell.exe`) as a subprocess. It provides an interactive command-line environment where the AI can execute PowerShell commands, scripts, and system administration tasks. The shell is started with default options to keep it open and ready for further input. (Note: This tool is duplicated by agent-proc-run, which provides equivalent functionality with a more agent-friendly interface.)
+
+- **`proc-ssh`**  
+  `proc-ssh` launches an SSH client (`ssh`) as a subprocess using `runProcess`. It enables the AI to initiate remote connections to other systems via the Secure Shell protocol. The tool can be used to execute remote commands, access remote shells, or tunnel services over SSH. The required `arguments` field allows specifying the target user, host, and any SSH options (e.g., `-p`, `-i`, `-L`). (Note: This tool is duplicated by agent-proc-run, which provides equivalent functionality with a more agent-friendly interface.)
+
+- **`proc-telnet`**  
+  A tool that runs Telnet sessions by internally using PuTTY's plink executable. This enables interactive Telnet connections on Windows without requiring an external pseudo-terminal emulator like winpty. Users supply the Telnet command arguments, which are passed directly to plink to establish the session. (Note: plink.exe must be available in the system PATH.) (Note: This tool is duplicated by agent-proc-run, which provides equivalent functionality with a more agent-friendly interface.)
+
+- **`proc-plink`**  
+  A Windows tool that launches an interactive console application via plink, a command-line SSH and Telnet client. Suitable for executing SSH or Telnet sessions directly without needing an external PTY emulator. (Note: plink.exe must be available in the system PATH.) (Note: This tool is duplicated by agent-proc-run, which provides equivalent functionality with a more agent-friendly interface.)
+
+- **`proc-spawn`**  
+  Spawns an external process using the specified arguments and enables interactive communication via standard input and output. Unlike PTY-based execution, this communicates directly with the process using the runProcess function without allocating a pseudo-terminal. Suitable for non-TUI, stdin/stdout-based interactive programs. (Note: This tool is duplicated by agent-proc-run, which provides equivalent functionality with a more agent-friendly interface.)
+
+- **`proc-message`**  
+  Sends structured text-based instructions or commands to a subprocess started with runProcess. It provides a programmable interface for interacting with the process via standard input. (Note: This tool is duplicated by agent-proc-write, which provides equivalent functionality with a more agent-friendly interface.)
+
+- **`proc-read`**  
+  Reads available output from the active PTY session without blocking. If no data is available, returns an empty string. (Note: This tool is duplicated by agent-proc-read, which provides equivalent functionality with a more agent-friendly interface.)
+
+- **`proc-write`**  
+  Writes input data to the active PTY session and returns immediately without waiting for completion. (Note: This tool is duplicated by agent-proc-write, which provides equivalent functionality with a more agent-friendly interface.)
+
+- **`proc-terminate`**  
+  Forcefully terminates a running process created via runProcess. (Note: This tool is duplicated by agent-proc-terminate, which provides equivalent functionality with a more agent-friendly interface.)
 
 - **`Scriptable CLI Integration`**  
   The `pty-mcp-server` supports execution of shell scripts associated with registered tools defined in `tools-list.json`. Each tool must be registered by name, and a corresponding shell script (`.sh`) should exist in the configured `tools/` directory.
@@ -291,6 +302,9 @@ This file defines how the `pty-mcp-server` should be launched in a development e
 - `prompts`:  
   A list of prompt strings used to detect interactive command prompts. This allows the AI to identify when a command is awaiting input. Examples include `"ghci>"`, `"]$"`, `"password:"`, etc.
 
+- `allowedAgentCmds`:  
+  A whitelist of commands that are permitted for use with `agent-proc-run`. If this list is empty (the default), all commands are denied. Only commands explicitly listed here will be allowed to execute.
+
   
 ---
 
@@ -334,7 +348,7 @@ Ref : [Web Service Construction Agent Prompt](https://github.com/phoityne/pms-mi
 
 
 1. [Scene 1: Overview & MCP Configuration]  
-In this demo, we’ll show how an AI agent builds and runs a web service inside a Docker container using the `pty-mcp-server`.  
+In this demo, we'll show how an AI agent builds and runs a web service inside a Docker container using the `pty-mcp-server`.  
 First, we configure `mcp.json` to launch the MCP server using a shell script.  
 This script starts the Docker container where our PTY-based interaction will take place.
 2. [Scene 2: Docker Launch Configuration]  
@@ -347,7 +361,7 @@ ready to handle AI-driven requests through a pseudo-terminal.
 
 4. [Scene 4: Connecting the AI Agent]  
 We open the chat interface and send a prompt designed for a web service builder agent.  
-The AI connects to the container’s Bash session via PTY and begins its preparation.
+The AI connects to the container's Bash session via PTY and begins its preparation.
 
 5. [Scene 5: Initial Setup Commands]  
 Following the prompt, the AI starts by:  
@@ -355,7 +369,7 @@ Following the prompt, the AI starts by:
     - Moving into the working directory
 
 6. [Scene 6: AI Ready to Receive Instructions]  
-Once the environment is ready, we instruct the AI to build a “Hello, world” web service.  
+Once the environment is ready, we instruct the AI to build a "Hello, world" web service.  
 From here, the AI begins its autonomous construction process.
 
 7. [Scene 7: AI Executes Web Setup Commands]  
@@ -364,12 +378,12 @@ As the user, we review and approve them one by one.
 Steps include:
     - Checking for Python
     - Installing Flask
-    - Writing the source code (`app.py`) to serve “Hello, world”
+    - Writing the source code (`app.py`) to serve "Hello, world"
     - Running the Flask server
     - Testing via `curl http://localhost:8080` inside the container
 
 8. [Scene 8: Verifying from Outside the Container]  
-To confirm external accessibility, we access the service from the host via **port 8080**.  As expected, the response is: **“Hello, world”**
+To confirm external accessibility, we access the service from the host via **port 8080**.  As expected, the response is: **"Hello, world"**
 
 9. [Scene 9: Reviewing the Execution History]  
 Finally, we review the AI's actions step by step:
@@ -400,7 +414,7 @@ This is where tool scripts like hostname.sh should be placed
 The hostname.sh script simply runs the hostname command.
 It is executed as a tool within the container.
 6. Executing hostname from Chat  
-Now, let’s run the hostname tool in the chat.
+Now, let's run the hostname tool in the chat.
 This shows the name of the current host, which is the container.  
 As expected, the output is: pms-docker-container
 This confirms that the command is executed inside the Docker container.
@@ -501,6 +515,7 @@ This package depends on the following packages:
 - [`pms-infrastructure`](https://github.com/phoityne/pms-infrastructure)
 - [`pms-infra-cmdrun`](https://github.com/phoityne/pms-infra-cmdrun)
 - [`pms-infra-procspawn`](https://github.com/phoityne/pms-infra-procspanw)
+- [`pms-infra-agent-process`](https://github.com/phoityne/pms-infra-agent-process)
 - [`pms-infra-serial`](https://github.com/phoityne/pms-infra-serial)
 - [`pms-infra-socket`](https://github.com/phoityne/pms-infra-socket)
 - [`pms-infra-watch`](https://github.com/phoityne/pms-infra-watch)
@@ -540,5 +555,9 @@ This architecture follows a layered and modular approach. Domain models, domain 
 ### Thread Structure
 ![Thread Structure](https://raw.githubusercontent.com/phoityne/pty-mcp-server/main/docs/03_thread_structure.png)
 
+### Background
+
+The layered and modular architecture of `pty-mcp-server` served as the original case study
+from which the [Core Projection Architecture (CPA)](https://github.com/lambda-tuber/core-projection-architecture/blob/main/README_en.md) was derived.
 
 ----

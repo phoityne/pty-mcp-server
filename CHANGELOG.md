@@ -1,5 +1,10 @@
 # Revision history for pty-mcp-server
 
+## 0.1.8.0 -- 2026-05-05
+
+* Add agent-proc tools (agent-proc-run, agent-proc-read, agent-proc-write, agent-proc-terminate).
+* Add allowedAgentCmds whitelist support for agent-proc-run.
+
 ## 0.1.7.0 -- 2026-04-30
 
 * Support timeout configuration.
