@@ -9,6 +9,11 @@ All AI systems must remain strictly under human oversight and control.
 Use responsibly, with full awareness and at your own risk.  
 
 ----
+## 📢 Notice
+
+Always ensure that [pty-mcp-server.yaml](https://github.com/phoityne/pms-missions/blob/main/0001_default-assets/pty-mcp-server.yaml) is updated to the latest version when upgrading the server. Using an outdated configuration file may lead to compatibility issues or execution errors.
+
+----
 ## 📘 Overview
 
 **`pty-mcp-server`** is a Haskell implementation of an **MCP (Model Context Protocol) server** that enables AI agents to dynamically acquire and control **PTY (pseudo-terminal) sessions**, allowing interaction with real system environments through terminal-based interfaces.
