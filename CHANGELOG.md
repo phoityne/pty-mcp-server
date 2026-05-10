@@ -1,5 +1,9 @@
 # Revision history for pty-mcp-server
 
+## 0.1.9.0 -- 2026-05-15
+
+* Add file system tools.
+
 ## 0.1.8.0 -- 2026-05-05
 
 * Add agent-proc tools (agent-proc-run, agent-proc-read, agent-proc-write, agent-proc-terminate).

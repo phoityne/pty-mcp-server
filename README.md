@@ -78,10 +78,22 @@ The server communicates exclusively via **standard input/output (stdio)**, ensur
   Create a directory at the specified path. Missing parent directories will also be created.
 
 - **`pms-read-file`**  
-  Read the contents of a file at the specified path.
+  Read the contents of a file at the specified path. Optionally specify startLine/endLine (1-based, inclusive) to read only a partial range of lines.
 
 - **`pms-write-file`**  
   Write contents to a file at the specified path.
+
+- **`pms-file-info`**  
+  Return basic metadata for a file: total line count and byte size. Use this before pms-read-file to understand the file's scale, and use the line count with pms-read-file partial-read to avoid loading more than necessary.
+
+- **`pms-grep-file`**  
+  Search a file for lines matching a POSIX extended regular expression. Returns a JSON array of hit objects, each with: 'line' (1-based line number), 'text' (full content of the matching line), and 'cols' (array of 1-based column offsets where the pattern matches within that line). Returns an empty array when no lines match. Use the returned line numbers with pms-read-file partial-read to efficiently retrieve surrounding context.
+
+- **`pms-replace-file`**  
+  Replace literal text in a file. Each replacement is applied in order, and every occurrence of oldText found at that step is replaced with newText. This is not a regular expression replacement.
+
+- **`pms-patch-file`**  
+  Apply a unified diff patch to a file at the specified path. The patch must be in unified diff format (e.g., @@ -1,3 +1,3 @@). On success, returns the path of the patched file. On failure, returns an error message such as HunkMismatch. NOTE: When using multiple hunks, each hunk's line numbers (both - and + sides) must account for the cumulative line count delta (additions minus deletions) of all preceding hunks.
 
 - **`socket-open`**  
   This tool initiates a socket connection to the specified host and port.
