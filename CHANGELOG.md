@@ -1,5 +1,9 @@
 # Revision history for pty-mcp-server
 
+## 0.2.0.0 -- 2026-05-31
+
+* Added pms-infra-agent-socket, pms-infra-agent-serial.
+
 ## 0.1.9.0 -- 2026-05-15
 
 * Add file system tools.

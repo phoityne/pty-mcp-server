@@ -8,6 +8,8 @@ packages:
   ../pms-infra-filesystem
   ../pms-infra-procspawn
   ../pms-infra-agent-process
+  ../pms-infra-agent-socket
+  ../pms-infra-agent-serial
   ../pms-infra-serial
   ../pms-infra-socket
   ../pms-infra-watch

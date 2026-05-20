@@ -16,15 +16,15 @@ Always ensure that [pty-mcp-server.yaml](https://github.com/phoityne/pms-mission
 ----
 ## 📘 Overview
 
-**`pty-mcp-server`** is a Haskell implementation of an **MCP (Model Context Protocol) server** that enables AI agents to dynamically acquire and control **PTY (pseudo-terminal) sessions**, allowing interaction with real system environments through terminal-based interfaces.
+**`pty-mcp-server`** is a Haskell implementation of an **MCP (Model Context Protocol) server** that enables AI agents to dynamically control **PTY (pseudo-terminal) sessions** and agent-friendly process, filesystem, socket, and serial interfaces, allowing interaction with real system environments through terminal-based and direct I/O interfaces.
 
-The server communicates exclusively via **standard input/output (stdio)**, ensuring simple and secure integration with MCP clients. Through this interface, AI agents can execute commands, retrieve system states, and apply configurations—just as a human operator would through a terminal.
+The server communicates exclusively via **standard input/output (stdio)**, ensuring simple and secure integration with MCP clients. Through this interface, AI agents can execute commands, exchange data with external endpoints, retrieve system states, and apply configurations under human oversight.
 
 ---
 
 ### 🎯 Purpose
 
-- Provide AI agents with **TTY-based control capabilities**  
+- Provide AI agents with **TTY-based and direct I/O control capabilities**
 - Enable **automated configuration, inspection, and operation** using CLI tools  
 - Facilitate **AI-driven workflows for system development, diagnostics, and remote interaction**  
 - Allow AI agents to access and operate on **systems beyond the reach of static scripts or APIs**  
@@ -42,6 +42,7 @@ The server communicates exclusively via **standard input/output (stdio)**, ensur
 - **Interactive debugging** of Haskell applications or shell-based workflows  
 - **System diagnostics** through scripted or interactive bash sessions  
 - **Remote server management** using SSH  
+- **Direct process, socket, serial, and filesystem operations** through agent-oriented MCP tools
 - **Hands-on system operation** where CLI behavior cannot be emulated via non-interactive scripting  
 - **Network device interaction**: configuring routers, switches, or appliances via console  
 - **AI-assisted IaC workflows**: executing Terraform, Ansible, or shell-based deploy scripts that involve prompts, state reconciliation, or real-time input  
@@ -71,6 +72,42 @@ The server communicates exclusively via **standard input/output (stdio)**, ensur
 - **`agent-proc-terminate`**  
   Forcefully terminates the currently running process. Resets internal state so agent-proc-run can be called again.
 
+- **`agent-socket-open`**
+  Opens a socket connection for subsequent agent-socket-read, agent-socket-write, agent-socket-read-byte, and agent-socket-write-byte operations. Specify either file for a Unix domain socket, or host and port for a TCP socket.
+
+- **`agent-socket-close`**
+  Closes the active agent socket connection.
+
+- **`agent-socket-read`**
+  Reads up to the specified number of bytes from the active agent socket connection and returns the data as a UTF-8 string. Returns an empty string if no data is available before timeout.
+
+- **`agent-socket-read-byte`**
+  Reads up to the specified number of bytes from the active agent socket connection and returns the data as an uppercase hex string.
+
+- **`agent-socket-write`**
+  Writes the specified UTF-8 string to the active agent socket connection.
+
+- **`agent-socket-write-byte`**
+  Decodes the specified hex string and writes the resulting bytes to the active agent socket connection.
+
+- **`agent-serial-open`**
+  Opens a serial port connection for subsequent agent-serial-read, agent-serial-write, agent-serial-read-byte, and agent-serial-write-byte operations. Only one port can be active at a time.
+
+- **`agent-serial-close`**
+  Closes the active serial port connection.
+
+- **`agent-serial-read`**
+  Reads up to the specified number of bytes from the active serial port and returns the data as a UTF-8 string. Returns an empty string if no data is available before timeout.
+
+- **`agent-serial-read-byte`**
+  Reads up to the specified number of bytes from the active serial port and returns the data as an uppercase hex string (e.g. FF0A1B41).
+
+- **`agent-serial-write`**
+  Writes the specified UTF-8 string to the active serial port.
+
+- **`agent-serial-write-byte`**
+  Decodes the specified hex string and writes the resulting bytes to the active serial port. Accepts uppercase or lowercase hex, e.g. FF0A1BFF or 000a1bff.
+
 - **`pms-list-dir`**  
   List the contents of a directory at the specified path.
 
@@ -96,37 +133,37 @@ The server communicates exclusively via **standard input/output (stdio)**, ensur
   Apply a unified diff patch to a file at the specified path. The patch must be in unified diff format (e.g., @@ -1,3 +1,3 @@). On success, returns the path of the patched file. On failure, returns an error message such as HunkMismatch. NOTE: When using multiple hunks, each hunk's line numbers (both - and + sides) must account for the cumulative line count delta (additions minus deletions) of all preceding hunks.
 
 - **`socket-open`**  
-  This tool initiates a socket connection to the specified host and port.
+  This tool initiates a socket connection to the specified host and port. (Deprecated: This tool is duplicated by agent-socket-open, which provides equivalent functionality with a more agent-friendly interface.)
 
 - **`socket-close`**  
-  This tool close active socket connection that was previously established using the 'socket-open' tool.
+  This tool close active socket connection that was previously established using the 'socket-open' tool. (Deprecated: This tool is duplicated by agent-socket-close, which provides equivalent functionality with a more agent-friendly interface.)
 
 - **`socket-read`**  
-  Reads the specified number of bytes from the socket. The 'size' parameter indicates how many bytes to read.
+  Reads the specified number of bytes from the socket. The 'size' parameter indicates how many bytes to read. (Deprecated: This tool is duplicated by agent-socket-read-byte, which provides equivalent functionality with a more agent-friendly interface.)
 
 - **`socket-write`**  
-  Write a sequence of bytes to the socket.
+  Write a sequence of bytes to the socket. (Deprecated: This tool is duplicated by agent-socket-write-byte, which provides equivalent functionality with a more agent-friendly interface.)
 
 - **`socket-message`**  
-  This tool sends a message over the active socket connection.
+  This tool sends a message over the active socket connection. (Deprecated: This tool is duplicated by agent-socket-write, which provides equivalent functionality with a more agent-friendly interface.)
 
 - **`socket-telnet`**  
-  A simple Telnet-like communication tool over raw TCP sockets. This tool connects to a specified host and port, sends and receives data, and removes any Telnet IAC (Interpret As Command) sequences from the communication stream. Note: This is a simplified Telnet implementation and does not support full Telnet protocol features.
+  A simple Telnet-like communication tool over raw TCP sockets. This tool connects to a specified host and port, sends and receives data, and removes any Telnet IAC (Interpret As Command) sequences from the communication stream. Note: This is a simplified Telnet implementation and does not support full Telnet protocol features. (Deprecated: This tool is duplicated by agent-socket-open, agent-socket-read-byte, and agent-socket-write-byte, which provide equivalent functionality with a more agent-friendly interface.)
 
 - **`serial-open`**  
-  Opens a serial port connection to a specified device with a given baud rate. Commonly used to access on-premises hardware or network devices via console.
+  Opens a serial port connection to a specified device with a given baud rate. Commonly used to access on-premises hardware or network devices via console. (Deprecated: This tool is duplicated by agent-serial-open, which provides equivalent functionality with a more agent-friendly interface.)
 
 - **`serial-close`**  
-  This tool close active serial connection that was previously established using the 'serial-open' tool.
+  This tool close active serial connection that was previously established using the 'serial-open' tool. (Deprecated: This tool is duplicated by agent-serial-close, which provides equivalent functionality with a more agent-friendly interface.)
 
 - **`serial-read`**  
-  Reads the specified number of bytes from the serial. The 'size' parameter indicates how many bytes to read.
+  Reads the specified number of bytes from the serial. The 'size' parameter indicates how many bytes to read. (Deprecated: This tool is duplicated by agent-serial-read-byte, which provides equivalent functionality with a more agent-friendly interface.)
 
 - **`serial-write`**  
-  Write a sequence of bytes to the serial.
+  Write a sequence of bytes to the serial. (Deprecated: This tool is duplicated by agent-serial-write-byte, which provides equivalent functionality with a more agent-friendly interface.)
 
 - **`serial-message`**  
-  This tool sends a specified string to the active socket connection, then waits for a recognizable prompt from the remote side. Upon detecting the prompt, it captures and returns all output received prior to it.
+  This tool sends a specified string to the active serial connection, then waits for a recognizable prompt from the remote side. Upon detecting the prompt, it captures and returns all output received prior to it. (Deprecated: This tool is duplicated by agent-serial-write and agent-serial-read, which provide equivalent functionality with a more agent-friendly interface.)
 
 - **`pty-bash`**  
   pty-bash is a tool that launches a bash shell in a pseudo terminal (PTY). It allows the LLM (MCP client) to interact with a real Linux shell in an interactive terminal (PTY). This enables AI to run system commands, collect information, and handle prompts or TUI-based tools as if operated by a human, making it effective for dynamic Linux-based automation and diagnostics. (Note: This tool is duplicated by agent-proc-run, which provides equivalent functionality with a more agent-friendly interface.)
@@ -531,11 +568,14 @@ This package depends on the following packages:
 - [`pms-ui-notification`](https://github.com/phoityne/pms-ui-notification)
 - [`pms-infrastructure`](https://github.com/phoityne/pms-infrastructure)
 - [`pms-infra-cmdrun`](https://github.com/phoityne/pms-infra-cmdrun)
-- [`pms-infra-procspawn`](https://github.com/phoityne/pms-infra-procspanw)
+- [`pms-infra-procspawn`](https://github.com/phoityne/pms-infra-procspawn)
 - [`pms-infra-agent-process`](https://github.com/phoityne/pms-infra-agent-process)
+- [`pms-infra-agent-socket`](https://github.com/phoityne/pms-infra-agent-socket)
+- [`pms-infra-agent-serial`](https://github.com/phoityne/pms-infra-agent-serial)
 - [`pms-infra-serial`](https://github.com/phoityne/pms-infra-serial)
 - [`pms-infra-socket`](https://github.com/phoityne/pms-infra-socket)
 - [`pms-infra-watch`](https://github.com/phoityne/pms-infra-watch)
+- [`pms-infra-filesystem`](https://github.com/phoityne/pms-infra-filesystem)
 - [`pms-application-service`](https://github.com/phoityne/pms-application-service)
 - [`pms-domain-service`](https://github.com/phoityne/pms-domain-service)
 - [`pms-domain-model`](https://github.com/phoityne/pms-domain-model)
