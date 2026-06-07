@@ -10,6 +10,7 @@ packages:
   ../pms-infra-agent-process
   ../pms-infra-agent-socket
   ../pms-infra-agent-serial
+  ../pms-infra-agent-server
   ../pms-infra-serial
   ../pms-infra-socket
   ../pms-infra-watch

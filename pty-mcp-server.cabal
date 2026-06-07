@@ -20,7 +20,7 @@ name:               pty-mcp-server
 -- PVP summary:     +-+------- breaking API changes
 --                  | | +----- non-breaking API additions
 --                  | | | +--- code changes with no API change
-version:            0.2.0.0
+version:            0.2.1.0
 
 -- A short (one-line) description of the package.
 synopsis:           pty-mcp-server
@@ -81,6 +81,7 @@ executable pty-mcp-server
             pms-infra-agent-process,
             pms-infra-agent-socket,
             pms-infra-agent-serial,
+            pms-infra-agent-server,
             pms-infra-serial,
             pms-infra-socket,
             pms-infra-watch,
@@ -102,6 +103,7 @@ executable pty-mcp-server
             pms-infra-agent-process,
             pms-infra-agent-socket,
             pms-infra-agent-serial,
+            pms-infra-agent-server,
             pms-infra-serial,
             pms-infra-socket,
             pms-infra-watch,

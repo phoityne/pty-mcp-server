@@ -90,6 +90,30 @@ The server communicates exclusively via **standard input/output (stdio)**, ensur
 - **`agent-socket-write-byte`**
   Decodes the specified hex string and writes the resulting bytes to the active agent socket connection.
 
+- **`agent-server-listen`**
+  Binds to the specified host and port, starts listening for incoming TCP connections, and launches a background accept thread. Returns immediately after the listener is ready. Only one listener can be active at a time.
+
+- **`agent-server-close`**
+  Closes the active accepted connection (if any). If no connection is active, also closes the listener. Call twice to close both the connection and the listener.
+
+- **`agent-server-status`**
+  Returns the current server status as a JSON object with `isListening` and `isConnected` boolean fields.
+
+- **`agent-server-events`**
+  Dequeues and returns all server-side events accumulated since the last call (e.g. ClientConnected, BytesReceived, ClientDisconnected). Returns an empty array if no events are pending.
+
+- **`agent-server-read`**
+  Reads data from the active accepted connection and returns it as a UTF-8 string. Returns an empty string if no data is available before timeout.
+
+- **`agent-server-read-byte`**
+  Reads data from the active accepted connection and returns it as an uppercase hex string.
+
+- **`agent-server-write`**
+  Writes the specified UTF-8 string to the active accepted connection. Note: `\r\n` is sent as literal characters; use agent-server-write-byte for correct CRLF.
+
+- **`agent-server-write-byte`**
+  Decodes the specified hex string and writes the resulting bytes to the active accepted connection. Hex string must not contain spaces or newlines.
+
 - **`agent-serial-open`**
   Opens a serial port connection for subsequent agent-serial-read, agent-serial-write, agent-serial-read-byte, and agent-serial-write-byte operations. Only one port can be active at a time.
 
@@ -571,6 +595,7 @@ This package depends on the following packages:
 - [`pms-infra-procspawn`](https://github.com/phoityne/pms-infra-procspawn)
 - [`pms-infra-agent-process`](https://github.com/phoityne/pms-infra-agent-process)
 - [`pms-infra-agent-socket`](https://github.com/phoityne/pms-infra-agent-socket)
+- [`pms-infra-agent-server`](https://github.com/phoityne/pms-infra-agent-server)
 - [`pms-infra-agent-serial`](https://github.com/phoityne/pms-infra-agent-serial)
 - [`pms-infra-serial`](https://github.com/phoityne/pms-infra-serial)
 - [`pms-infra-socket`](https://github.com/phoityne/pms-infra-socket)

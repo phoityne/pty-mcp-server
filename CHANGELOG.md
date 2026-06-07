@@ -1,5 +1,11 @@
 # Revision history for pty-mcp-server
 
+## 0.2.1.0 -- 2026-06-15
+
+* Added pms-infra-agent-server: TCP server listen/accept functionality for AI agents.
+* New tools: agent-server-listen, agent-server-close, agent-server-status, agent-server-events, agent-server-read, agent-server-write, agent-server-read-byte, agent-server-write-byte.
+* Added skill prompts: skill_agent_server.md, skill_agent_client.md for AI-to-AI TCP communication.
+
 ## 0.2.0.0 -- 2026-05-31
 
 * Added pms-infra-agent-socket, pms-infra-agent-serial.
