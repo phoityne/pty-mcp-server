@@ -1,5 +1,10 @@
 # Revision history for pty-mcp-server
 
+## 0.2.2.0 -- 2026-07-05
+
+* Changed the method for retrieving command execution results.
+* Fixed the configuration setting loading process.
+
 ## 0.2.1.0 -- 2026-06-15
 
 * Added pms-infra-agent-server: TCP server listen/accept functionality for AI agents.
